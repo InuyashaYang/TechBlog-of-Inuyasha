@@ -31,11 +31,8 @@ data_template='''
     "math_field_path":field_path_str}
 '''
 ```
-
-|参数|含义|
-|---|---|
-|```pos1```|```input_lean_statement```|
-|```pos2```|```input_natural_language_statement```|
+- pos1 input_lean_statement 
+- pos2 input_natural_language_statement 
 
 </details>
 
@@ -62,10 +59,8 @@ Ensure each subfield name is concise yet descriptive, using standard mathematica
 data_template = "{'child1': 'subfield_name1', 'child2': 'subfield_name2', ...}"
 ```
 
-|参数|含义|
-|---|---|
-|```node_name```|当前数学领域节点名称|
-|```node_field_info```|当前数学领域的相关信息|
+- node_name:当前数学领域节点名称
+- node_field_info:当前数学领域的相关信息
 
 </details>
 
@@ -105,9 +100,7 @@ data_template02='''
 '''
 ```
 
-|参数|含义|
-|---|---|
-|```pos1```|```input_natural_language_statement```|
+- pos1:input_natural_language_statement
 
 </details>
 
@@ -128,8 +121,6 @@ data_template='''
 ```
 
 
-|参数|含义|
-|---|---|
-|```pos1```|```input_lean_statement```|
+- pos1:input_lean_statement
 
 </details>
