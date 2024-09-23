@@ -18,7 +18,7 @@
     
     
       
-        <title>Lean Agent - AIDIY Wiki</title>
+        <title>Lean Agent - Inuyasha's TechBlog</title>
       
     
     
@@ -76,7 +76,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="AIDIY Wiki" class="md-header__button md-logo" aria-label="AIDIY Wiki" data-md-component="logo">
+    <a href=".." title="Inuyasha&#39;s TechBlog" class="md-header__button md-logo" aria-label="Inuyasha's TechBlog" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -90,7 +90,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            AIDIY Wiki
+            Inuyasha's TechBlog
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -253,13 +253,13 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="AIDIY Wiki" class="md-nav__button md-logo" aria-label="AIDIY Wiki" data-md-component="logo">
+    <a href=".." title="Inuyasha&#39;s TechBlog" class="md-nav__button md-logo" aria-label="Inuyasha's TechBlog" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    AIDIY Wiki
+    Inuyasha's TechBlog
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -409,6 +409,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Lean Agent
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -418,6 +429,43 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 采样与生成
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 后处理阶段
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -443,6 +491,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 采样与生成
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 后处理阶段
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -457,38 +531,7 @@
 
 
 <h1 id="1">1. 各个处理环节的提示词整理<a class="headerlink" href="#1" title="Permanent link">&para;</a></h1>
-<details>
-<summary>Lean-NL命题对学科归类</summary>
-
-<div class="highlight"><pre><span></span><code>prompt_template = &#39;&#39;&#39;
-我们试图重构一个由lean4形式化语句和自然语句所共同表述的数学命题的数学领域结构，你需要给我这个数学命题的层级和具体的路径
-我们提供下面的一些例子
-  假如对象被归入&quot;Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients&quot;,
-    他是一个6层结构，因为他从Mathematics的节点往下沿生了6层，
-    样例输出：{{&quot;math_depth&quot;: 6,
-    &quot;math_field_path&quot;:&quot;Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients&quot;}}
-    假如对象被归入&quot;Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions&quot;
-    那么其深度为4
-    样例输出：{{&quot;math_depth&quot;: 4,
-    &quot;math_field_path&quot;:&quot;Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions&quot;}}
-####################################################
-   现在请你忽略以上的示例的内容:
-   {data_template}
-   生成以下命题的分析
-   lean4格式：{pos1}
-   自然语言格式:{pos2}
-&#39;&#39;&#39;
-
-data_template=&#39;&#39;&#39;
-    {&quot;math_depth&quot;: math_depth_int,
-    &quot;math_field_path&quot;:field_path_str}
-&#39;&#39;&#39;
-</code></pre></div>
-- pos1 input_lean_statement 
-- pos2 input_natural_language_statement 
-
-</details>
-
+<h2 id="11">1.1 采样与生成<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
 <details>
 <summary>生成数学学科树</summary>
 
@@ -509,10 +552,29 @@ Ensure each subfield name is concise yet descriptive, using standard mathematica
 
 data_template = &quot;{&#39;child1&#39;: &#39;subfield_name1&#39;, &#39;child2&#39;: &#39;subfield_name2&#39;, ...}&quot;
 </code></pre></div>
-
-- node_name:当前数学领域节点名称
+<div class="highlight"><pre><span></span><code>- node_name:当前数学领域节点名称
 - node_field_info:当前数学领域的相关信息
+</code></pre></div>
+</details>
 
+<details>
+<summary>自然语言命题生成母版</summary>
+
+<div class="highlight"><pre><span></span><code>prompt_meta_template = &#39;&#39;&#39;
+Please generate a random mathematical statement or theorem expressed in natural language. This statement or theorem should come from the following mathematical fields:
+
+{math_field}
+
+Please express it in clear, easy-to-understand natural language, avoiding excessive use of mathematical symbols. The generated content can be a basic concept or a more advanced theorem. Ensure that the statement is clear and comprehensible.
+
+Please output this randomly generated mathematical statement in the following format:
+
+{data_template}
+&#39;&#39;&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>math_field input_mathematical_fields
+data_template output_format_template
+</code></pre></div>
 </details>
 
 <details>
@@ -548,8 +610,8 @@ data_template02=&#39;&#39;&#39;
     {&quot;lean_statement&quot;:translated_lean_statement_str_here}
 &#39;&#39;&#39;
 </code></pre></div>
-
-- pos1:input_natural_language_statement
+<div class="highlight"><pre><span></span><code>pos1:input_natural_language_statement
+</code></pre></div>
 
 </details>
 
@@ -568,8 +630,90 @@ data_template=&#39;&#39;&#39;
 </code></pre></div>
 
 
-- pos1:input_lean_statement
+<div class="highlight"><pre><span></span><code>pos1:input_lean_statement
+</code></pre></div>
 
+</details>
+
+<h2 id="12">1.2 后处理阶段<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Lean-NL命题对学科归类</summary>
+
+<div class="highlight"><pre><span></span><code>prompt_template = &#39;&#39;&#39;
+我们试图重构一个由lean4形式化语句和自然语句所共同表述的数学命题的数学领域结构，你需要给我这个数学命题的层级和具体的路径
+我们提供下面的一些例子
+  假如对象被归入&quot;Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients&quot;,
+    他是一个6层结构，因为他从Mathematics的节点往下沿生了6层，
+    样例输出：{{&quot;math_depth&quot;: 6,
+    &quot;math_field_path&quot;:&quot;Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients&quot;}}
+    假如对象被归入&quot;Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions&quot;
+    那么其深度为4
+    样例输出：{{&quot;math_depth&quot;: 4,
+    &quot;math_field_path&quot;:&quot;Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions&quot;}}
+####################################################
+   现在请你忽略以上的示例的内容:
+   {data_template}
+   生成以下命题的分析
+   lean4格式：{pos1}
+   自然语言格式:{pos2}
+&#39;&#39;&#39;
+
+data_template=&#39;&#39;&#39;
+    {&quot;math_depth&quot;: math_depth_int,
+    &quot;math_field_path&quot;:field_path_str}
+&#39;&#39;&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>pos1 input_lean_statement 
+
+pos2 input_natural_language_statement 
+</code></pre></div>
+
+</details>
+
+<details>
+<summary>Lean-NL命题的子命题确定</summary>
+
+<div class="highlight"><pre><span></span><code>prompt_template = &#39;&#39;&#39;
+我们正在深入研究数学命题的形式化表述。我会给你一个数学命题，包括它的自然语言描述和Lean4形式化表述。你的任务是识别并形式化这个命题直接依赖的子命题或基础概念。
+
+请按照以下格式提供你的分析：
+
+{data_template}
+
+注意，我们强烈要求lean_str的格式遵循着:
+import Mathlib\nmain_content:=by sorry
+的格式以便于我们之后的验证，如果他不是可以接:=by sorry的Lean4概念，也请你使其自洽
+
+不许提供variables 不需要额外的解释
+
+现在，请分析以下命题：
+
+Lean4形式化：
+{pos1}
+
+自然语言描述：
+{pos2}
+
+请完成以下任务：
+1. 识别这个命题直接依赖的若干个关键子命题或基础概念。
+2. 为每个识别出的子命题或概念提供Lean4形式化表述。
+3. 简要解释每个子命题或概念与主命题的关系。
+4. 如果可能，指出这些子命题或概念在证明或构建主命题时的作用。
+
+注意：focus在直接相关的、构成主命题基础的元素上，而不是更广泛的相关概念。
+&#39;&#39;&#39;
+
+data_template=&#39;&#39;&#39;
+    {&quot;statement_1&quot;:{&quot;lean_statement&quot;: lean_str,
+    &quot;natural_language_statement&quot;:nl_str},...,
+    &quot;statement_n&quot;:{&quot;lean_statement&quot;: lean_str,
+    &quot;natural_language_statement&quot;:nl_str}
+&#39;&#39;&#39;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>pos1 input_lean_statement
+pos2 input_natural_language_description
+</code></pre></div>
 </details>
 
 

@@ -1,4 +1,4 @@
-site_name: AIDIY Wiki
+site_name: Inuyasha's TechBlog
 theme:
   name: material
   features:
@@ -37,6 +37,7 @@ nav:
     - Docker镜像部署与发布: docker/docker_image_container.md
   - Concurrent Agent: concurrent_agent.md
   - Lean Agent: lean_agent.md
+  - Eval Agent: eval_agent.md
 
 
 extra:
