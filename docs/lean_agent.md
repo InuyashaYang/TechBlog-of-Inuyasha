@@ -3,38 +3,7 @@
 
 
 
-<details>
-<summary>Lean-NL命题对学科归类</summary>
-
-```
-prompt_template = '''
-我们试图重构一个由lean4形式化语句和自然语句所共同表述的数学命题的数学领域结构，你需要给我这个数学命题的层级和具体的路径
-我们提供下面的一些例子
-  假如对象被归入"Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients",
-    他是一个6层结构，因为他从Mathematics的节点往下沿生了6层，
-    样例输出：{{"math_depth": 6,
-    "math_field_path":"Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients"}}
-    假如对象被归入"Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions"
-    那么其深度为4
-    样例输出：{{"math_depth": 4,
-    "math_field_path":"Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions"}}
-####################################################
-   现在请你忽略以上的示例的内容:
-   {data_template}
-   生成以下命题的分析
-   lean4格式：{pos1}
-   自然语言格式:{pos2}
-'''
-
-data_template='''
-    {"math_depth": math_depth_int,
-    "math_field_path":field_path_str}
-'''
-```
-- pos1 input_lean_statement 
-- pos2 input_natural_language_statement 
-
-</details>
+## 1.1 采样与生成
 
 
 <details>
@@ -58,12 +27,33 @@ Ensure each subfield name is concise yet descriptive, using standard mathematica
 
 data_template = "{'child1': 'subfield_name1', 'child2': 'subfield_name2', ...}"
 ```
-
+```
 - node_name:当前数学领域节点名称
 - node_field_info:当前数学领域的相关信息
-
+```
 </details>
 
+<details>
+<summary>自然语言命题生成母版</summary>
+
+```
+prompt_meta_template = '''
+Please generate a random mathematical statement or theorem expressed in natural language. This statement or theorem should come from the following mathematical fields:
+
+{math_field}
+
+Please express it in clear, easy-to-understand natural language, avoiding excessive use of mathematical symbols. The generated content can be a basic concept or a more advanced theorem. Ensure that the statement is clear and comprehensible.
+
+Please output this randomly generated mathematical statement in the following format:
+
+{data_template}
+'''
+```
+```
+math_field input_mathematical_fields
+data_template output_format_template
+```
+</details>
 
 <details>
 <summary>自然语言翻译为Lean4</summary>
@@ -99,8 +89,9 @@ data_template02='''
     {"lean_statement":translated_lean_statement_str_here}
 '''
 ```
-
-- pos1:input_natural_language_statement
+```
+pos1:input_natural_language_statement
+```
 
 </details>
 
@@ -121,6 +112,97 @@ data_template='''
 ```
 
 
-- pos1:input_lean_statement
+```
+pos1:input_lean_statement
+
+```
 
 </details>
+
+## 1.2 后处理阶段
+
+<details>
+<summary>Lean-NL命题对学科归类</summary>
+
+```
+prompt_template = '''
+我们试图重构一个由lean4形式化语句和自然语句所共同表述的数学命题的数学领域结构，你需要给我这个数学命题的层级和具体的路径
+我们提供下面的一些例子
+  假如对象被归入"Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients",
+    他是一个6层结构，因为他从Mathematics的节点往下沿生了6层，
+    样例输出：{{"math_depth": 6,
+    "math_field_path":"Mathematics / Number Theory / Diophantine Equations / Higher-Degree Diophantine Equations / Quintic Diophantine Equations / Quintic Diophantine Equations with Rational Coefficients / Symmetry and Group Theory in Quintic Diophantine Equations with Rational Coefficients"}}
+    假如对象被归入"Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions"
+    那么其深度为4
+    样例输出：{{"math_depth": 4,
+    "math_field_path":"Mathematics / Combinatorics / Graph Theory / Graph Decompositions / Star Decompositions"}}
+####################################################
+   现在请你忽略以上的示例的内容:
+   {data_template}
+   生成以下命题的分析
+   lean4格式：{pos1}
+   自然语言格式:{pos2}
+'''
+
+data_template='''
+    {"math_depth": math_depth_int,
+    "math_field_path":field_path_str}
+'''
+```
+
+```
+pos1 input_lean_statement 
+
+pos2 input_natural_language_statement 
+```
+
+</details>
+
+
+<details>
+<summary>Lean-NL命题的子命题确定</summary>
+
+```
+prompt_template = '''
+我们正在深入研究数学命题的形式化表述。我会给你一个数学命题，包括它的自然语言描述和Lean4形式化表述。你的任务是识别并形式化这个命题直接依赖的子命题或基础概念。
+
+请按照以下格式提供你的分析：
+
+{data_template}
+
+注意，我们强烈要求lean_str的格式遵循着:
+import Mathlib\nmain_content:=by sorry
+的格式以便于我们之后的验证，如果他不是可以接:=by sorry的Lean4概念，也请你使其自洽
+
+不许提供variables 不需要额外的解释
+
+现在，请分析以下命题：
+
+Lean4形式化：
+{pos1}
+
+自然语言描述：
+{pos2}
+
+请完成以下任务：
+1. 识别这个命题直接依赖的若干个关键子命题或基础概念。
+2. 为每个识别出的子命题或概念提供Lean4形式化表述。
+3. 简要解释每个子命题或概念与主命题的关系。
+4. 如果可能，指出这些子命题或概念在证明或构建主命题时的作用。
+
+注意：focus在直接相关的、构成主命题基础的元素上，而不是更广泛的相关概念。
+'''
+
+data_template='''
+    {"statement_1":{"lean_statement": lean_str,
+    "natural_language_statement":nl_str},...,
+    "statement_n":{"lean_statement": lean_str,
+    "natural_language_statement":nl_str}
+'''
+```
+```
+pos1 input_lean_statement
+pos2 input_natural_language_description
+```
+</details>
+
