@@ -1,0 +1,1087 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../docker_image_container/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
+    
+    
+      
+        <title>Dockerfile 构建经验 - AIDIY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.06209087.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lean4mathlib-dockerfile" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AIDIY Wiki" class="md-header__button md-logo" aria-label="AIDIY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AIDIY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Dockerfile 构建经验
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  Docker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../concurrent_agent.md" class="md-tabs__link">
+        
+  
+    
+  
+  Concurrent Agent
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AIDIY Wiki" class="md-nav__button md-logo" aria-label="AIDIY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AIDIY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Dockerfile 构建经验
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Dockerfile 构建经验
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Docker 命令概览
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 最佳实践
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 详细解析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 附录：原始Dockerfile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 原始Dockerfile详解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础镜像选择
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统依赖安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户安全性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elan 安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lean" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lean 工具链安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      项目初始化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境变量配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动命令
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-lean4-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Lean4 Dockerfile 构建经验总结
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker_image_container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker镜像部署与发布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concurrent_agent.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Concurrent Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Docker 命令概览
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 最佳实践
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 详细解析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 附录：原始Dockerfile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 原始Dockerfile详解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      基础镜像选择
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      系统依赖安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户安全性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elan 安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lean" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lean 工具链安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      项目初始化
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      环境变量配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      启动命令
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-lean4-dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Lean4 Dockerfile 构建经验总结
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="lean4mathlib-dockerfile">Lean4+Mathlib开发环境 Dockerfile 构建经验<a class="headerlink" href="#lean4mathlib-dockerfile" title="Permanent link">&para;</a></h1>
+<h2 id="1-docker">1. Docker 命令概览<a class="headerlink" href="#1-docker" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FROM</td>
+<td>指定基础镜像</td>
+<td><code>FROM ubuntu:22.04</code></td>
+</tr>
+<tr>
+<td>ENV</td>
+<td>设置环境变量</td>
+<td><code>ENV DEBIAN_FRONTEND=noninteractive</code></td>
+</tr>
+<tr>
+<td>RUN</td>
+<td>执行 shell 命令</td>
+<td><code>RUN apt-get update &amp;&amp; apt-get install -y ...</code></td>
+</tr>
+<tr>
+<td>USER</td>
+<td>切换当前用户</td>
+<td><code>USER leanuser</code></td>
+</tr>
+<tr>
+<td>WORKDIR</td>
+<td>设置工作目录</td>
+<td><code>WORKDIR /home/leanuser</code></td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>设置容器启动时的默认命令</td>
+<td><code>CMD [ "bash", "-l" ]</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 最佳实践<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>使用 <code>&amp;&amp;</code> 连接多个命令，减少 RUN 指令的数量，有助于减小镜像层数。</li>
+<li>清理不必要的文件（如 <code>apt-get clean</code>），减小镜像大小。</li>
+<li>使用非 root 用户运行应用，提高安全性。</li>
+<li>将频繁变动的命令放在 Dockerfile 的后面，利用 Docker 的缓存机制提高构建效率。</li>
+</ol>
+<h2 id="3">3. 详细解析<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>基础镜像选择 (FROM)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span>
+</code></pre></div></li>
+<li>
+<p>指定基础镜像，这里使用 Ubuntu 22.04 LTS 版本。</p>
+</li>
+<li>
+<p><strong>环境变量设置 (ENV)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">ENV</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+</code></pre></div></p>
+</li>
+<li>
+<p>设置环境变量，用于配置安装过程中的行为。</p>
+</li>
+<li>
+<p><strong>包管理和系统依赖安装 (RUN)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>...
+</code></pre></div></p>
+</li>
+<li>
+<p>更新包列表并安装必要的系统依赖。</p>
+</li>
+<li>
+<p><strong>用户创建和权限配置 (RUN, USER)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-G<span class="w"> </span>sudo<span class="w"> </span>leanuser
+<span class="k">USER</span><span class="w"> </span><span class="s">leanuser</span>
+</code></pre></div></p>
+</li>
+<li>创建非 root 用户并配置 sudo 权限。</li>
+<li>
+<p>切换到新创建的用户。</p>
+</li>
+<li>
+<p><strong>工作目录设置 (WORKDIR)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/home/leanuser</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>设置工作目录，后续命令将在此目录下执行。</p>
+</li>
+<li>
+<p><strong>Elan 安装 (RUN)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>curl<span class="w"> </span>-sSfL<span class="w"> </span>https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-s<span class="w"> </span>--<span class="w"> </span>-y
+</code></pre></div></p>
+</li>
+<li>
+<p>使用官方脚本安装 Elan（Lean 版本管理器）。</p>
+</li>
+<li>
+<p><strong>Lean 工具链安装 (RUN)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>elan<span class="w"> </span>toolchain<span class="w"> </span>install<span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>lean-toolchain<span class="k">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>安装指定版本的 Lean 工具链。</p>
+</li>
+<li>
+<p><strong>项目初始化和构建 (RUN)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>lake<span class="w"> </span>update
+<span class="k">RUN</span><span class="w"> </span>lake<span class="w"> </span>build
+</code></pre></div></p>
+</li>
+<li>
+<p>使用 Lake 更新项目依赖并构建项目。</p>
+</li>
+<li>
+<p><strong>环境变量配置 (RUN)</strong>
+   <div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export LEAN_PATH=&quot;...&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+</code></pre></div></p>
+</li>
+<li>
+<p>配置 Lean 相关的环境变量。</p>
+</li>
+<li>
+<p><strong>默认启动命令设置 (CMD)</strong>
+    <div class="highlight"><pre><span></span><code><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;bash&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-l&quot;</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div></p>
+<ul>
+<li>设置容器启动时的默认命令。</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-dockerfile">4. 附录：原始Dockerfile<a class="headerlink" href="#4-dockerfile" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c"># 使用官方的 Ubuntu 22.04 LTS 作为基础镜像</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span>
+
+<span class="c"># 设置环境变量以避免在安装过程中出现交互提示</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+
+<span class="c"># 更新包列表并安装必要的系统依赖</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>sudo<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>git<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>curl<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>bash-completion<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>python3-requests<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>build-essential<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libffi-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libssl-dev<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>pkg-config<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>clean<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+
+<span class="c"># 创建一个非 root 用户以增强安全性</span>
+<span class="k">RUN</span><span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>-G<span class="w"> </span>sudo<span class="w"> </span>leanuser<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;leanuser ALL=(ALL) NOPASSWD:ALL&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/sudoers
+
+<span class="c"># 切换到非 root 用户</span>
+<span class="k">USER</span><span class="w"> </span><span class="s">leanuser</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/home/leanuser</span>
+
+<span class="c"># 安装 Elan（Lean 版本管理器）</span>
+<span class="k">RUN</span><span class="w"> </span>curl<span class="w"> </span>-sSfL<span class="w"> </span>https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w"> </span>-s<span class="w"> </span>--<span class="w"> </span>-y
+
+<span class="c"># 将 Elan 的路径添加到环境变量中</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/home/leanuser/.elan/bin:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c"># 安装 Lean 工具链（根据 mathlib 的 lean-toolchain 文件）</span>
+<span class="k">RUN</span><span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>https://raw.githubusercontent.com/leanprover-community/mathlib4/master/lean-toolchain<span class="w"> </span>-o<span class="w"> </span>lean-toolchain<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>elan<span class="w"> </span>toolchain<span class="w"> </span>install<span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>lean-toolchain<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>elan<span class="w"> </span>default<span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>lean-toolchain<span class="k">)</span>
+
+<span class="c"># 验证 Lake 安装</span>
+<span class="k">RUN</span><span class="w"> </span>lake<span class="w"> </span>--version
+
+<span class="c"># 手动创建 Lean 项目并添加 Mathlib 作为依赖</span>
+<span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>my_project<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span>my_project<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;import Lake\nopen Lake DSL\n\npackage «my_project» where\n  -- add package configuration options here\n\nrequire mathlib from git\n  &quot;https://github.com/leanprover-community/mathlib4.git&quot;\n\n@[default_target]\nlean_lib «MyProject» where\n  -- add library configuration options here&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>lakefile.lean
+
+<span class="c"># 设置工作目录为项目目录</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/home/leanuser/my_project</span>
+
+<span class="c"># 创建 MyProject.lean 文件</span>
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;def hello := &quot;Hello from MyProject!&quot;&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>MyProject.lean
+
+<span class="c"># 初始化项目并更新依赖</span>
+<span class="k">RUN</span><span class="w"> </span>lake<span class="w"> </span>update
+
+<span class="c"># 构建项目</span>
+<span class="k">RUN</span><span class="w"> </span>lake<span class="w"> </span>build
+
+<span class="c"># 创建测试文件</span>
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;import Mathlib\n\ndef main : IO Unit :=\n  IO.println s!&quot;Hello from Mathlib! {2 + 2}&quot;\n\n#eval main&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>test_mathlib.lean
+
+<span class="c"># 设置环境变量以包含所有必要的库路径</span>
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export LEAN_PATH=&quot;$LEAN_PATH:$(find .lake/packages -name lib -type d | tr &quot;\n&quot; &quot;:&quot; | sed &quot;s/:$//&quot;)&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+
+<span class="c"># 确保 .bashrc 在每次启动时都被加载</span>
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;source ~/.bashrc&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.profile
+
+<span class="c"># 设置默认的启动命令</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;bash&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-l&quot;</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div>
+<h2 id="5-dockerfile">5. 原始Dockerfile详解<a class="headerlink" href="#5-dockerfile" title="Permanent link">&para;</a></h2>
+<h2 id="_1">基础镜像选择<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>FROM ubuntu:22.04
+</code></pre></div>
+<ul>
+<li>选择官方 Ubuntu 22.04 LTS 作为基础镜像，确保稳定性和长期支持。</li>
+<li>考虑使用更轻量的基础镜像（如 Alpine）可能会带来兼容性问题，因此选择 Ubuntu 是安全的选择。</li>
+</ul>
+<h2 id="_2">系统依赖安装<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update &amp;&amp; apt-get install -y \
+    sudo git curl bash-completion python3 python3-requests \
+    build-essential libffi-dev libssl-dev pkg-config \
+    &amp;&amp; apt-get clean &amp;&amp; rm -rf /var/lib/apt/lists/*
+</code></pre></div>
+<ul>
+<li>设置 <code>DEBIAN_FRONTEND=noninteractive</code> 避免安装过程中的交互提示。</li>
+<li>安装必要的系统依赖，包括编译工具和 Python 环境。</li>
+<li>使用 <code>apt-get clean</code> 和删除 <code>/var/lib/apt/lists/*</code> 减小镜像大小。</li>
+</ul>
+<h2 id="_3">用户安全性<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>RUN useradd -m -s /bin/bash -G sudo leanuser \
+    &amp;&amp; echo &quot;leanuser ALL=(ALL) NOPASSWD:ALL&quot; &gt;&gt; /etc/sudoers
+
+USER leanuser
+WORKDIR /home/leanuser
+</code></pre></div>
+<ul>
+<li>创建非 root 用户 <code>leanuser</code> 增强安全性。</li>
+<li>将用户添加到 sudo 组并配置无密码 sudo 权限，方便后续操作。</li>
+<li>切换到非 root 用户，设置工作目录。</li>
+</ul>
+<h2 id="elan">Elan 安装<a class="headerlink" href="#elan" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>RUN curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+
+ENV PATH=&quot;/home/leanuser/.elan/bin:${PATH}&quot;
+</code></pre></div>
+<ul>
+<li>使用官方脚本安装 Elan（Lean 版本管理器）。</li>
+<li>将 Elan 的路径添加到环境变量中，确保可以全局访问。</li>
+</ul>
+<h2 id="lean">Lean 工具链安装<a class="headerlink" href="#lean" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>RUN curl -s https://raw.githubusercontent.com/leanprover-community/mathlib4/master/lean-toolchain -o lean-toolchain \
+    &amp;&amp; elan toolchain install $(cat lean-toolchain) \
+    &amp;&amp; elan default $(cat lean-toolchain)
+</code></pre></div>
+<ul>
+<li>从 mathlib 仓库获取最新的 <code>lean-toolchain</code> 文件。</li>
+<li>安装指定版本的 Lean 工具链并设置为默认版本。</li>
+</ul>
+<h2 id="_4">项目初始化<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>RUN mkdir my_project &amp;&amp; cd my_project &amp;&amp; \
+    echo &#39;import Lake\nopen Lake DSL\n\npackage «my_project» where\n  -- add package configuration options here\n\nrequire mathlib from git\n  &quot;https://github.com/leanprover-community/mathlib4.git&quot;\n\n@[default_target]\nlean_lib «MyProject» where\n  -- add library configuration options here&#39; &gt; lakefile.lean
+
+WORKDIR /home/leanuser/my_project
+
+RUN echo &#39;def hello := &quot;Hello from MyProject!&quot;&#39; &gt; MyProject.lean
+
+RUN lake update
+RUN lake build
+</code></pre></div>
+<ul>
+<li>手动创建 Lean 项目结构，包括 <code>lakefile.lean</code> 和主文件。</li>
+<li>使用 <code>lake update</code> 初始化项目并更新依赖。</li>
+<li>使用 <code>lake build</code> 构建项目，确保环境正常。</li>
+</ul>
+<h2 id="_5">环境变量配置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>RUN echo &#39;export LEAN_PATH=&quot;$LEAN_PATH:$(find .lake/packages -name lib -type d | tr &quot;\n&quot; &quot;:&quot; | sed &quot;s/:$//&quot;)&quot;&#39; &gt;&gt; ~/.bashrc
+RUN echo &#39;source ~/.bashrc&#39; &gt;&gt; ~/.profile
+</code></pre></div>
+<ul>
+<li>配置 <code>LEAN_PATH</code> 环境变量，包含所有必要的库路径。</li>
+<li>确保每次启动容器时都加载这些环境变量。</li>
+</ul>
+<h2 id="_6">启动命令<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>CMD [ &quot;bash&quot;, &quot;-l&quot; ]
+</code></pre></div>
+<ul>
+<li>设置默认启动命令为登录 shell，确保环境变量被正确加载。</li>
+</ul>
+<h2 id="6-lean4-dockerfile">6. Lean4 Dockerfile 构建经验总结<a class="headerlink" href="#6-lean4-dockerfile" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>版本控制</strong>：使用 <code>lean-toolchain</code> 文件确保 Lean 版本与 Mathlib 兼容。</li>
+<li><strong>依赖管理</strong>：通过 Elan 和 Lake 管理 Lean 和项目依赖，简化版本控制。</li>
+<li><strong>安全性</strong>：使用非 root 用户运行应用，提高容器安全性。</li>
+<li><strong>环境变量</strong>：正确配置 <code>LEAN_PATH</code> 确保所有库路径可访问。</li>
+<li><strong>构建验证</strong>：在 Dockerfile 中进行项目构建，验证环境配置正确。</li>
+<li><strong>镜像优化</strong>：清理不必要的文件，减小最终镜像大小。</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/InuyashaYang/TechBlog-of-Inuyasha" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="../../javascripts/mathjax_config.js"></script>
+      
+    
+  </body>
+</html>
