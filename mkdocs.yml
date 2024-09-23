@@ -36,6 +36,7 @@ nav:
     - Dockerfile 构建经验: docker/dockerfile_construct.md
     - Docker镜像部署与发布: docker/docker_image_container.md
   - Concurrent Agent: concurrent_agent.md
+  - Lean Agent: lean_agent.md
 
 
 extra:
