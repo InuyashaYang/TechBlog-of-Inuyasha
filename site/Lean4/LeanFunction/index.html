@@ -1,0 +1,977 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Lean4_Python/">
+      
+      
+        <link rel="next" href="../../lean_agent/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>使用lean4解数学方程 - Inuyasha's TechBlog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lean4" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Inuyasha&#39;s TechBlog" class="md-header__button md-logo" aria-label="Inuyasha's TechBlog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inuyasha's TechBlog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              使用lean4解数学方程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../docker/dockerfile_construct/" class="md-tabs__link">
+          
+  
+  Docker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Lean4_Python/" class="md-tabs__link">
+          
+  
+  Lean4
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lean_agent/" class="md-tabs__link">
+        
+  
+    
+  
+  Lean Agent
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../eval_agent/" class="md-tabs__link">
+        
+  
+    
+  
+  Eval Agent
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Inuyasha&#39;s TechBlog" class="md-nav__button md-logo" aria-label="Inuyasha's TechBlog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Inuyasha's TechBlog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/dockerfile_construct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerfile 构建经验
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../docker/docker_image_container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker镜像部署与发布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Lean4
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Lean4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lean4_Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    同python对照的lean4教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Leetcode.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用lean4求解Leetcode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    使用lean4解数学方程
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    使用lean4解数学方程
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      引言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 线性方程：精确性与计算效率的权衡
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 线性方程：精确性与计算效率的权衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-q" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 使用有理数 (ℚ)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 使用浮点数 (Float)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 使用实数 (ℝ)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 二次方程：处理复杂性和特殊情况
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 牛顿法：数值方法与迭代算法
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lean_agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lean Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eval_agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eval Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      引言
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 线性方程：精确性与计算效率的权衡
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 线性方程：精确性与计算效率的权衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-q" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 使用有理数 (ℚ)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 使用浮点数 (Float)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 使用实数 (ℝ)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 二次方程：处理复杂性和特殊情况
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 牛顿法：数值方法与迭代算法
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="lean4">Lean4 数学教程：从线性方程到牛顿法<a class="headerlink" href="#lean4" title="Permanent link">&para;</a></h1>
+<h2 id="_1">引言<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>在数学和计算机科学的交叉领域，形式化方法和定理证明系统正在发挥越来越重要的作用。Lean4 作为一种先进的定理证明助手和函数式编程语言，为我们提供了一个强大的工具来探索数学概念、实现算法，并验证其正确性。</p>
+<p>本教程的目标是通过一系列渐进复杂的数学问题，展示 Lean4 在数学建模和计算方面的能力。我们将从简单的线性方程开始，逐步深入到二次方程的求解，最后介绍牛顿法这一强大的数值方法。通过这个过程，我们不仅能学习如何使用 Lean4 解决实际问题，还能深入理解数学概念与计算机实现之间的联系。</p>
+<h2 id="1">1. 线性方程：精确性与计算效率的权衡<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>我们首先从最基本的数学概念之一 —— 线性方程开始。线性方程形如 ax + b = 0，其中 a 和 b 是常数，x 是未知数。在 Lean4 中，我们可以用多种方式表示和求解这类方程，每种方式都有其独特的优势和局限性。</p>
+<h3 id="11-q">1.1 使用有理数 (ℚ)<a class="headerlink" href="#11-q" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib.Data.Real.Basic</span>
+
+<span class="kd">structure</span><span class="w"> </span><span class="n">LinearEquation</span><span class="w"> </span><span class="n">where</span>
+<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℚ</span>
+<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℚ</span>
+<span class="n">deriving</span><span class="w"> </span><span class="n">Repr</span>
+
+<span class="kd">def</span><span class="w"> </span><span class="n">solveLinearEquation</span><span class="w"> </span><span class="o">(</span><span class="n">eq</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">LinearEquation</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Option</span><span class="w"> </span><span class="n">ℚ</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">eq.a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">eq.b</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">none</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">some</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="n">eq.b</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="n">eq.a</span><span class="o">)</span>
+
+<span class="c1">-- 示例使用代码省略...</span>
+</code></pre></div>
+<p>使用有理数的优势在于它提供了精确的结果，避免了浮点数计算中的舍入误差。这对于需要高精度的数学证明或金融计算特别有用。然而，有理数运算可能在某些情况下效率较低，特别是当分子或分母变得非常大时。</p>
+<h3 id="12-float">1.2 使用浮点数 (Float)<a class="headerlink" href="#12-float" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib</span>
+
+<span class="kd">structure</span><span class="w"> </span><span class="n">LinearEquation</span><span class="w"> </span><span class="n">where</span>
+<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span>
+<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span>
+
+<span class="kd">def</span><span class="w"> </span><span class="n">solveLinearEquation</span><span class="w"> </span><span class="o">(</span><span class="n">eq</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">LinearEquation</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Option</span><span class="w"> </span><span class="n">Float</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">eq.a</span><span class="w"> </span><span class="bp">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">eq.b</span><span class="w"> </span><span class="bp">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">none</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">some</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="n">eq.b</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="n">eq.a</span><span class="o">)</span>
+
+<span class="c1">-- 示例使用代码省略...</span>
+</code></pre></div>
+<p>浮点数实现提供了计算效率和实用性之间的平衡。它允许快速计算，并且可以处理非常大或非常小的数值。然而，浮点数计算可能导致精度损失，这在某些科学计算或金融应用中可能是不可接受的。</p>
+<h3 id="13-r">1.3 使用实数 (ℝ)<a class="headerlink" href="#13-r" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib.Data.Real.Basic</span>
+
+<span class="kd">structure</span><span class="w"> </span><span class="n">LinearEquation</span><span class="w"> </span><span class="n">where</span>
+<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span>
+<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">ℝ</span>
+
+<span class="kd">noncomputable</span><span class="w"> </span><span class="kd">def</span><span class="w"> </span><span class="n">solveLinearEquation</span><span class="w"> </span><span class="o">(</span><span class="n">eq</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">LinearEquation</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Option</span><span class="w"> </span><span class="n">ℝ</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">eq.a</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">eq.b</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">none</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">some</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="n">eq.b</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="n">eq.a</span><span class="o">)</span>
+</code></pre></div>
+<p>使用实数类型提供了理论上的精确性，这在数学证明中非常有用。然而，实数在 Lean4 中被标记为 <code>noncomputable</code>，意味着它们不能用于实际的计算。这种实现主要用于形式化数学理论和定理证明。</p>
+<p>通过比较这三种实现，我们可以深入理解数值表示和计算的不同方法，以及它们在精确性、效率和理论基础方面的权衡。这种理解对于选择合适的数据类型和算法来解决实际问题至关重要。</p>
+<h2 id="2">2. 二次方程：处理复杂性和特殊情况<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>接下来，我们探讨更复杂的二次方程求解。二次方程不仅引入了更多的数学复杂性，还需要我们考虑多种特殊情况，如无解、单解和双解。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib</span>
+
+<span class="kd">structure</span><span class="w"> </span><span class="n">QuadraticEquation</span><span class="w"> </span><span class="n">where</span>
+<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span>
+<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span>
+<span class="w">  </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span>
+<span class="n">deriving</span><span class="w"> </span><span class="n">Repr</span>
+
+<span class="kd">def</span><span class="w"> </span><span class="n">solveQuadraticEquation</span><span class="w"> </span><span class="o">(</span><span class="n">eq</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">QuadraticEquation</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Option</span><span class="w"> </span><span class="o">(</span><span class="n">Float</span><span class="w"> </span><span class="bp">×</span><span class="w"> </span><span class="n">Float</span><span class="o">)</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">eq.a</span><span class="w"> </span><span class="bp">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="c1">-- 处理退化为线性方程的情况</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">eq.b</span><span class="w"> </span><span class="bp">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="k">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">-</span><span class="n">eq.c</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="n">eq.b</span>
+<span class="w">      </span><span class="n">some</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="n">none</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="c1">-- 计算判别式</span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="n">discriminant</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">eq.b</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">eq.b</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">eq.a</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">eq.c</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">discriminant</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="n">none</span><span class="w">  </span><span class="c1">-- 无实数解</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">discriminant</span><span class="w"> </span><span class="bp">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="c1">-- 唯一解</span>
+<span class="w">      </span><span class="k">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">-</span><span class="n">eq.b</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">eq.a</span><span class="o">)</span>
+<span class="w">      </span><span class="n">some</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">)</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="c1">-- 两个不同的解</span>
+<span class="w">      </span><span class="k">let</span><span class="w"> </span><span class="n">sqrtD</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">Float.sqrt</span><span class="w"> </span><span class="n">discriminant</span>
+<span class="w">      </span><span class="k">let</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="n">eq.b</span><span class="w"> </span><span class="bp">+</span><span class="w"> </span><span class="n">sqrtD</span><span class="o">)</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">eq.a</span><span class="o">)</span>
+<span class="w">      </span><span class="k">let</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="n">eq.b</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">sqrtD</span><span class="o">)</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="o">(</span><span class="mi">2</span><span class="w"> </span><span class="bp">*</span><span class="w"> </span><span class="n">eq.a</span><span class="o">)</span>
+<span class="w">      </span><span class="n">some</span><span class="w"> </span><span class="o">(</span><span class="n">x1</span><span class="o">,</span><span class="w"> </span><span class="n">x2</span><span class="o">)</span>
+
+<span class="c1">-- 示例使用代码省略...</span>
+</code></pre></div>
+<p>这个实现展示了如何处理各种边界情况和特殊情况，这是软件工程中的一个关键技能。我们需要考虑：
+1. 方程退化为线性方程的情况 (a = 0)
+2. 无解的情况（判别式小于0）
+3. 单解的情况（判别式等于0）
+4. 双解的情况（判别式大于0）</p>
+<p>通过这个例子，我们不仅学习了如何在 Lean4 中实现复杂的数学算法，还深入理解了数学理论与实际编程之间的联系。</p>
+<h2 id="3">3. 牛顿法：数值方法与迭代算法<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>最后，我们介绍牛顿法，这是一种强大的数值方法，用于寻找函数的根。牛顿法展示了如何将微积分概念转化为计算机算法。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="n">Mathlib.Data.Real.Basic</span>
+<span class="kn">import</span><span class="w"> </span><span class="n">Mathlib.Analysis.SpecialFunctions.Sqrt</span>
+
+<span class="kd">structure</span><span class="w"> </span><span class="n">Function</span><span class="w"> </span><span class="n">where</span>
+<span class="w">  </span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Float</span>
+<span class="w">  </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="w"> </span><span class="bp">→</span><span class="w"> </span><span class="n">Float</span><span class="w">  </span><span class="c1">-- 导数</span>
+
+<span class="kd">def</span><span class="w"> </span><span class="n">newtonMethod</span><span class="w"> </span><span class="o">(</span><span class="n">func</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Function</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">x0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">tolerance</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">maxIterations</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="k">let</span><span class="w"> </span><span class="n">rec</span><span class="w"> </span><span class="n">iterate</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Nat</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="bp">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">x</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="k">let</span><span class="w"> </span><span class="n">fx</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">func.f</span><span class="w"> </span><span class="n">x</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">fx.abs</span><span class="w"> </span><span class="bp">&lt;</span><span class="w"> </span><span class="n">tolerance</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">x</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="k">let</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="n">fx</span><span class="w"> </span><span class="bp">/</span><span class="w"> </span><span class="n">func.f&#39;</span><span class="w"> </span><span class="n">x</span>
+<span class="w">        </span><span class="n">iterate</span><span class="w"> </span><span class="n">x&#39;</span><span class="w"> </span><span class="o">(</span><span class="n">n</span><span class="w"> </span><span class="bp">-</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span>
+<span class="w">  </span><span class="n">iterate</span><span class="w"> </span><span class="n">x0</span><span class="w"> </span><span class="n">maxIterations</span>
+
+<span class="c1">-- 示例使用代码省略...</span>
+</code></pre></div>
+<p>牛顿法的实现体现了几个重要的编程和数学概念：
+1. 递归和迭代：通过递归函数实现迭代过程。
+2. 收敛条件：使用容差（tolerance）来判断是否达到足够精确的解。
+3. 函数作为一等公民(即可以赋值、可以作为参数传递、可以被返回)：将函数及其导数作为参数传递。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- 线性方程示例</span>
+<span class="kd">def</span><span class="w"> </span><span class="n">example1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">LinearEquation.mk</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">4</span><span class="o">)</span>
+<span class="k">#eval</span><span class="w"> </span><span class="n">printSolution</span><span class="w"> </span><span class="n">example1</span>
+
+<span class="c1">-- 二次方程示例</span>
+<span class="kd">def</span><span class="w"> </span><span class="n">quadExample</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">QuadraticEquation.mk</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">(</span><span class="bp">-</span><span class="mi">5</span><span class="o">)</span><span class="w"> </span><span class="mi">6</span>
+<span class="k">#eval</span><span class="w"> </span><span class="n">printSolution</span><span class="w"> </span><span class="n">quadExample</span>
+
+<span class="c1">-- 牛顿法示例</span>
+<span class="kd">def</span><span class="w"> </span><span class="n">sqrt2Approximation</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Float</span><span class="w"> </span><span class="o">:=</span>
+<span class="w">  </span><span class="n">newtonMethod</span><span class="w"> </span><span class="n">squareRootFunction</span><span class="w"> </span><span class="mi">1</span><span class="bp">.</span><span class="mi">5</span><span class="w"> </span><span class="mi">0</span><span class="bp">.</span><span class="mi">0001</span><span class="w"> </span><span class="mi">20</span>
+<span class="k">#eval</span><span class="w"> </span><span class="n">sqrt2Approximation</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/InuyashaYang/TechBlog-of-Inuyasha" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="../../javascripts/mathjax_config.js"></script>
+      
+    
+  </body>
+</html>

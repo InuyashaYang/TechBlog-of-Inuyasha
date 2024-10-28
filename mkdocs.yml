@@ -37,7 +37,7 @@ nav:
     - Docker镜像部署与发布: docker/docker_image_container.md
   - Lean4 : 
     - 同python对照的lean4教程: Lean4/Lean4_Python.md
-    - 使用lean4求解Leetcode: Lean4/Leetcode.md
+    - 使用lean4求解Leetcode: Lean4/LeetCode.md
     - 使用lean4解数学方程: Lean4/LeanFunction.md
   - Lean Agent: lean_agent.md
   - Eval Agent: eval_agent.md
