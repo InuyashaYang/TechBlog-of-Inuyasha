@@ -32,6 +32,7 @@ extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.css
 nav:
   - Home: index.md
+  - SAE_Train: SAE/openai_sae_train.md
   - Docker:
     - Dockerfile 构建经验: Docker/dockerfile_construct.md
     - Docker镜像部署与发布: Docker/docker_image_container.md
