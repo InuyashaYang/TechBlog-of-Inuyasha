@@ -33,8 +33,8 @@ extra_css:
 nav:
   - Home: index.md
   - Docker:
-    - Dockerfile 构建经验: docker/dockerfile_construct.md
-    - Docker镜像部署与发布: docker/docker_image_container.md
+    - Dockerfile 构建经验: Docker/dockerfile_construct.md
+    - Docker镜像部署与发布: Docker/docker_image_container.md
   - Lean4 : 
     - 同python对照的lean4教程: Lean4/Lean4_Python.md
     - 使用lean4求解Leetcode: Lean4/LeetCode.md
