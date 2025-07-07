@@ -397,26 +397,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      反向传播公式
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      梯度传播路径特性
-    </span>
-  </a>
   
 </li>
       
@@ -719,26 +701,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      反向传播公式
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      梯度传播路径特性
-    </span>
-  </a>
   
 </li>
       
@@ -1857,211 +1821,178 @@
 </code></pre></div>
 <h3 id="_1">数学公式详解<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <h4 id="_2">前向传播公式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
-<ol>
-<li>
-<p><strong>② 中心化</strong>：
+<div class="highlight"><pre><span></span><code><span class="k">1.</span> <span class="gs">**② 中心化**</span>：
    $$
-   \text{E1: } \mathbf{x}<em _text_pre="\text{pre">{\text{centered}} = \mathbf{x} - \mathbf{b}</em>
-   $$}</p>
-</li>
-<li>
-<p><strong>③ 编码</strong>：
+   \text{E1: } \mathbf{x}_{\text{centered}} = \mathbf{x} - \mathbf{b}_{\text{pre}}
    $$
-   \text{E2: } \mathbf{z}<em _text_enc="\text{enc">{\text{pre}} = \mathbf{W}</em>}} \mathbf{x<em _text_lat="\text{lat">{\text{centered}} + \mathbf{b}</em>
-   $$}</p>
-</li>
-<li>
-<p><strong>④ Top-K 稀疏化</strong>：
+
+<span class="k">2.</span> <span class="gs">**③ 编码**</span>：
    $$
-   \text{E3: } \mathbf{z} = \text{TopK}<em _text_pre="\text{pre">k(\operatorname{ReLU}(\mathbf{z}</em>))
-   $$}</p>
-</li>
-<li>
-<p><strong>⑤ 解码</strong>：
+   \text{E2: } \mathbf{z}_{\text{pre}} = \mathbf{W}_{\text{enc}} \mathbf{x}_{\text{centered}} + \mathbf{b}_{\text{lat}}
    $$
-   \text{E4: } \mathbf{x}<em _text_dec="\text{dec">{\text{partial}} = \mathbf{W}</em>
-   $$}} \mathbf{z</p>
-</li>
-<li>
-<p><strong>⑥ 添加偏置</strong>：
+
+<span class="k">3.</span> <span class="gs">**④ Top-K 稀疏化**</span>：
    $$
-   \text{E5: } \hat{\mathbf{x}} = \mathbf{x}<em _text_pre="\text{pre">{\text{partial}} + \mathbf{b}</em>
-   $$}</p>
-</li>
-<li>
-<p><strong>⑦ 主损失</strong>：
+   \text{E3: } \mathbf{z} = \text{TopK}_k(\operatorname{ReLU}(\mathbf{z}_{\text{pre}}))
    $$
-   \text{E6: } \mathcal{L}_{\text{MSE}} = \frac{1}{d} |\hat{\mathbf{x}} - \mathbf{x}|^2_2
-   $$</p>
-</li>
-<li>
-<p><strong>⑧ 缩放</strong>：
+
+<span class="k">4.</span> <span class="gs">**⑤ 解码**</span>：
    $$
-   \text{E7: } \mathcal{L}<em _text_MSE="\text{MSE">{\text{scaled}} = \alpha \cdot \mathcal{L}</em>)
-   $$}} \quad (\alpha = \text{mse_scale</p>
-</li>
-<li>
-<p><strong>⑨ AuxK 稀疏化</strong>：
+   \text{E4: } \mathbf{x}_{\text{partial}} = \mathbf{W}_{\text{dec}} \mathbf{z}
    $$
-   \text{E8: } \mathbf{z}<em _text_auxk="\text{auxk">{\text{auxk}} = \text{TopK}</em>}}(\operatorname{ReLU}(\mathbf{z<em _text_dead="\text{dead">{\text{pre}} \odot \mathbb{I}</em>))
-   $$}</p>
-</li>
-<li>
-<p><strong>⑩ 残差计算</strong>：
+
+<span class="k">5.</span> <span class="gs">**⑥ 添加偏置**</span>：
+   $$
+   \text{E5: } \hat{\mathbf{x}} = \mathbf{x}_{\text{partial}} + \mathbf{b}_{\text{pre}}
+   $$
+
+<span class="k">6.</span> <span class="gs">**⑦ 主损失**</span>：
+   $$
+   \text{E6: } \mathcal{L}_{\text{MSE}} = \frac{1}{d} \|\hat{\mathbf{x}} - \mathbf{x}\|^2_2
+   $$
+
+<span class="k">7.</span> <span class="gs">**⑧ 缩放**</span>：
+   $$
+   \text{E7: } \mathcal{L}_{\text{scaled}} = \alpha \cdot \mathcal{L}_{\text{MSE}} \quad (\alpha = \text{mse\_scale})
+   $$
+
+<span class="k">8.</span> <span class="gs">**⑨ AuxK 稀疏化**</span>：
+   $$
+   \text{E8: } \mathbf{z}_{\text{auxk}} = \text{TopK}_{\text{auxk}}(\operatorname{ReLU}(\mathbf{z}_{\text{pre}} \odot \mathbb{I}_{\text{dead}}))
+   $$
+
+<span class="k">9.</span> <span class="gs">**⑩ 残差计算**</span>：
    $$
    \text{E9: } \mathbf{r} = (\mathbf{x} - \hat{\mathbf{x}}).\text{detach()}
-   $$</p>
-</li>
-<li>
-<p><strong>⑪ 辅助解码</strong>：
+   $$
+
+<span class="k">10.</span> <span class="gs">**⑪ 辅助解码**</span>：
     $$
-    \text{E10: } \hat{\mathbf{r}} = \mathbf{W}_{\text{dec}}[:, \mathcal{I}] \mathbf{v} \quad (\mathcal{I} = \text{auxk_indices})
-    $$</p>
-</li>
-<li>
-<p><strong>⑫ 辅助损失</strong>：
+    \text{E10: } \hat{\mathbf{r}} = \mathbf{W}_{\text{dec}}[:, \mathcal{I}] \mathbf{v} \quad (\mathcal{I} = \text{auxk\_indices})
     $$
-    \text{E11: } \mathcal{L}_{\text{AuxK}} = \beta \cdot \frac{|\hat{\mathbf{r}} - \mathbf{r}|<sup>2_2}{|\mathbf{r}|</sup>2_2 + \epsilon} \quad (\beta = \text{auxk_coef})
-    $$</p>
-</li>
-<li>
-<p><strong>⑬ 总损失</strong>：
+
+<span class="k">11.</span> <span class="gs">**⑫ 辅助损失**</span>：
     $$
-    \text{E12: } \mathcal{L}<em _text_scaled="\text{scaled">{\text{total}} = \mathcal{L}</em>
-    $$}} + \mathcal{L}_{\text{AuxK}</p>
-</li>
-</ol>
-<h4 id="_3">反向传播公式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
-<ol>
-<li>
-<p><strong>⑭ 反向传播起点</strong>：
+    \text{E11: } \mathcal{L}_{\text{AuxK}} = \beta \cdot \frac{\|\hat{\mathbf{r}} - \mathbf{r}\|^2_2}{\|\mathbf{r}\|^2_2 + \epsilon} \quad (\beta = \text{auxk\_coef})
+    $$
+
+<span class="k">12.</span> <span class="gs">**⑬ 总损失**</span>：
+    $$
+    \text{E12: } \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{scaled}} + \mathcal{L}_{\text{AuxK}}
+    $$
+
+<span class="gu">#### 反向传播公式</span>
+
+<span class="k">1.</span> <span class="gs">**⑭ 反向传播起点**</span>：
    $$
    \nabla_{\mathcal{L}_{\text{total}}} = 1
-   $$</p>
-</li>
-<li>
-<p><strong>⑬ 总损失梯度</strong>：
    $$
-   \nabla_{\mathcal{L}<em _mathcal_L="\mathcal{L">{\text{scaled}}} = 1, \quad \nabla</em> = 1
-   $$}_{\text{AuxK}}</p>
-</li>
-<li>
-<p><strong>⑧ 缩放梯度</strong>：
+
+<span class="k">2.</span> <span class="gs">**⑬ 总损失梯度**</span>：
+   $$
+   \nabla_{\mathcal{L}_{\text{scaled}}} = 1, \quad \nabla_{\mathcal{L}_{\text{AuxK}}} = 1
+   $$
+
+<span class="k">3.</span> <span class="gs">**⑧ 缩放梯度**</span>：
    $$
    \nabla_{\mathcal{L}_{\text{MSE}}} = \alpha
-   $$</p>
-</li>
-<li>
-<p><strong>⑦ 主损失梯度</strong>：
+   $$
+
+<span class="k">4.</span> <span class="gs">**⑦ 主损失梯度**</span>：
    $$
    \nabla_{\hat{\mathbf{x}}} = \frac{2\alpha}{d} (\hat{\mathbf{x}} - \mathbf{x})
-   $$</p>
-</li>
-<li>
-<p><strong>⑥ 添加偏置梯度</strong>：
    $$
-   \nabla_{\mathbf{x}<em _hat_mathbf_x="\hat{\mathbf{x">{\text{partial}}} = \nabla</em>}}}, \quad \nabla_{\mathbf{b<em _hat_mathbf_x="\hat{\mathbf{x">{\text{pre}}} = \sum \nabla</em>
-   $$}}</p>
-</li>
-<li>
-<p><strong>⑤ 解码梯度</strong>：
+
+<span class="k">5.</span> <span class="gs">**⑥ 添加偏置梯度**</span>：
    $$
-   \nabla_{\mathbf{W}<em _mathbf_x="\mathbf{x">{\text{dec}}^{\text{(main)}}} = \nabla</em><em _mathbf_z="\mathbf{z">{\text{partial}}} \mathbf{z}^\top, \quad \nabla</em>}} = \mathbf{W<em _mathbf_x="\mathbf{x">{\text{dec}}^\top \nabla</em>
-   $$}_{\text{partial}}</p>
-</li>
-<li>
-<p><strong>⑫ 辅助损失梯度</strong>：
+   \nabla_{\mathbf{x}_{\text{partial}}} = \nabla_{\hat{\mathbf{x}}}, \quad \nabla_{\mathbf{b}_{\text{pre}}} = \sum \nabla_{\hat{\mathbf{x}}}
    $$
-   \nabla_{\hat{\mathbf{r}}} = \frac{2\beta}{|\mathbf{r}|^2_2 + \epsilon} (\hat{\mathbf{r}} - \mathbf{r})
-   $$</p>
-</li>
-<li>
-<p><strong>⑪ 辅助解码梯度</strong>：
+
+<span class="k">6.</span> <span class="gs">**⑤ 解码梯度**</span>：
    $$
-   \nabla_{\mathbf{W}<em _hat_mathbf_r="\hat{\mathbf{r">{\text{dec}}^{\text{(aux)}}}[:, j] = 
+   \nabla_{\mathbf{W}_{\text{dec}}^{\text{(main)}}} = \nabla_{\mathbf{x}_{\text{partial}}} \mathbf{z}^\top, \quad \nabla_{\mathbf{z}} = \mathbf{W}_{\text{dec}}^\top \nabla_{\mathbf{x}_{\text{partial}}}
+   $$
+
+<span class="k">7.</span> <span class="gs">**⑫ 辅助损失梯度**</span>：
+   $$
+   \nabla_{\hat{\mathbf{r}}} = \frac{2\beta}{\|\mathbf{r}\|^2_2 + \epsilon} (\hat{\mathbf{r}} - \mathbf{r})
+   $$
+
+<span class="k">8.</span> <span class="gs">**⑪ 辅助解码梯度**</span>：
+   $$
+   \nabla_{\mathbf{W}_{\text{dec}}^{\text{(aux)}}}[:, j] = 
    \begin{cases} 
-   \nabla</em> \
+   \nabla_{\hat{\mathbf{r}}_i} v_j &amp; \text{if } j \in \mathcal{I} \\
    0 &amp; \text{otherwise}
    \end{cases}
-   $$}}_i} v_j &amp; \text{if } j \in \mathcal{I</p>
-</li>
-<li>
-<p><strong>④ Top-K 梯度</strong>：
    $$
-   \nabla_{\mathbf{z}<em _mathbf_z="\mathbf{z">{\text{pre}, i}} = 
+
+<span class="k">9.</span> <span class="gs">**④ Top-K 梯度**</span>：
+   $$
+   \nabla_{\mathbf{z}_{\text{pre}, i}} = 
    \begin{cases} 
-   \nabla</em><em _text_pre="\text{pre">i} \cdot \mathbb{I}(z</em> i \in S_k \
+   \nabla_{\mathbf{z}_i} \cdot \mathbb{I}(z_{\text{pre},i} &gt; 0) &amp; \text{if } i \in S_k \\
    0 &amp; \text{otherwise}
    \end{cases}
-   $$},i} &gt; 0) &amp; \text{if </p>
-</li>
-<li>
-<p><strong>③ 编码梯度</strong>：
+   $$
+
+<span class="k">10.</span> <span class="gs">**③ 编码梯度**</span>：
     $$
-    \nabla_{\mathbf{W}<em _mathbf_z="\mathbf{z">{\text{enc}}} = \nabla</em><em _text_centered="\text{centered">{\text{pre}}} \mathbf{x}</em>^\top, \quad 
-    \nabla_{\mathbf{b}}<em _mathbf_z="\mathbf{z">{\text{lat}}} = \sum \nabla</em>
-    $$}_{\text{pre}}</p>
-</li>
-<li>
-<p><strong>② 中心化梯度</strong>：
+    \nabla_{\mathbf{W}_{\text{enc}}} = \nabla_{\mathbf{z}_{\text{pre}}} \mathbf{x}_{\text{centered}}^\top, \quad 
+    \nabla_{\mathbf{b}_{\text{lat}}} = \sum \nabla_{\mathbf{z}_{\text{pre}}}
     $$
-    \nabla_{\mathbf{x}<em _text_enc="\text{enc">{\text{centered}}} = \mathbf{W}</em>
-    $$}}^\top \nabla_{\mathbf{z}_{\text{pre}}</p>
-</li>
-<li>
-<p><strong>⑮ 梯度调整</strong>：
+
+<span class="k">11.</span> <span class="gs">**② 中心化梯度**</span>：
     $$
-    \nabla_{\mathbf{W}<em _mathbf_W="\mathbf{W">{\text{dec}}}^{\text{(adj)}} = \nabla</em><em _mathbf_W="\mathbf{W">{\text{dec}}} - \text{diag}(\mathbf{w}_j^\top \nabla</em><em _text_dec="\text{dec">{\text{dec}}}) \mathbf{W}</em>
-    $$}</p>
-</li>
-<li>
-<p><strong>⑰ 权重归一化</strong>：
+    \nabla_{\mathbf{x}_{\text{centered}}} = \mathbf{W}_{\text{enc}}^\top \nabla_{\mathbf{z}_{\text{pre}}}
     $$
-    \mathbf{W}<em _text_dec="\text{dec">{\text{dec}}[:, j] \leftarrow \frac{\mathbf{W}</em>
-    $$}}[:, j]}{|\mathbf{W}_{\text{dec}}[:, j]|_2</p>
-</li>
-</ol>
-<h3 id="_4">梯度传播路径特性<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<ol>
-<li>
-<p><strong>主路径梯度流</strong>：
-   <div class="highlight"><pre><span></span><code>⑭ → ⑬ → ⑧ → ⑦ → ⑥ → ⑤ → ④ → ③ → ②
-</code></pre></div>
-   更新参数：<code>W_enc, b_lat, b_pre, W_dec</code>（主激活列）</p>
-</li>
-<li>
-<p><strong>辅助路径梯度流</strong>：
-   <div class="highlight"><pre><span></span><code>⑭ → ⑬ → ⑫ → ⑪ → ⑨ → ③ → ②
-</code></pre></div>
-   更新参数：<code>W_enc, b_lat, b_pre, W_dec</code>（辅助激活列）</p>
-</li>
-<li>
-<p><strong>梯度切断点</strong>：</p>
-</li>
-<li>残差计算 <code>r = (x - x_hat).detach()</code> 阻止辅助损失梯度影响主重构路径</li>
-<li>
-<p>确保辅助训练只激活"死亡神经元"，不干扰主特征学习</p>
-</li>
-<li>
-<p><strong>参数更新范围</strong>：
+
+<span class="k">12.</span> <span class="gs">**⑮ 梯度调整**</span>：
+    $$
+    \nabla_{\mathbf{W}_{\text{dec}}}^{\text{(adj)}} = \nabla_{\mathbf{W}_{\text{dec}}} - \text{diag}(\mathbf{w}_j^\top \nabla_{\mathbf{W}_{\text{dec}}}) \mathbf{W}_{\text{dec}}
+    $$
+
+<span class="k">13.</span> <span class="gs">**⑰ 权重归一化**</span>：
+    $$
+    \mathbf{W}_{\text{dec}}[:, j] \leftarrow \frac{\mathbf{W}_{\text{dec}}[:, j]}{\|\mathbf{W}_{\text{dec}}[:, j]\|_2}
+    $$
+
+<span class="gu">### 梯度传播路径特性</span>
+
+<span class="k">1.</span> <span class="gs">**主路径梯度流**</span>：
+<span class="sb">   ```</span>
+<span class="sb">   ⑭ → ⑬ → ⑧ → ⑦ → ⑥ → ⑤ → ④ → ③ → ②</span>
+<span class="sb">   ```</span>
+   更新参数：`W_enc, b<span class="ge">_lat, b_</span>pre, W_dec`（主激活列）
+
+<span class="k">2.</span> <span class="gs">**辅助路径梯度流**</span>：
+<span class="sb">   ```</span>
+<span class="sb">   ⑭ → ⑬ → ⑫ → ⑪ → ⑨ → ③ → ②</span>
+<span class="sb">   ```</span>
+   更新参数：`W_enc, b<span class="ge">_lat, b_</span>pre, W_dec`（辅助激活列）
+
+<span class="k">3.</span> <span class="gs">**梯度切断点**</span>：
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>残差计算 <span class="sb">`r = (x - x_hat).detach()`</span> 阻止辅助损失梯度影响主重构路径
+<span class="w">   </span><span class="k">-</span><span class="w"> </span>确保辅助训练只激活&quot;死亡神经元&quot;，不干扰主特征学习
+
+<span class="k">4.</span> <span class="gs">**参数更新范围**</span>：
    | 参数        | 主路径更新 | 辅助路径更新 |
    |------------|-----------|------------|
-   | <code>W_enc</code>    | ✓         | ✓          |
-   | <code>b_lat</code>    | ✓         | ✓          |
-   | <code>b_pre</code>    | ✓         | ✓          |
-   | <code>W_dec</code>    | TopK列    | AuxK列     |</p>
-</li>
-<li>
-<p><strong>梯度调整机制</strong>：
-   <div class="highlight"><pre><span></span><code><span class="c1"># 正交投影伪代码</span>
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_dirs</span><span class="p">):</span>
-    <span class="n">w_j</span> <span class="o">=</span> <span class="n">W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
-    <span class="n">g_j</span> <span class="o">=</span> <span class="n">grad_W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
-    <span class="c1"># 投影到与w_j正交的方向</span>
-    <span class="n">grad_W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">g_j</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_j</span><span class="p">,</span> <span class="n">w_j</span><span class="p">)</span> <span class="o">*</span> <span class="n">w_j</span>
-</code></pre></div></p>
-</li>
-</ol>
+   | <span class="sb">`W_enc`</span>    | ✓         | ✓          |
+   | <span class="sb">`b_lat`</span>    | ✓         | ✓          |
+   | <span class="sb">`b_pre`</span>    | ✓         | ✓          |
+   | <span class="sb">`W_dec`</span>    | TopK列    | AuxK列     |
+
+<span class="k">5.</span> <span class="gs">**梯度调整机制**</span>：
+<span class="sb">   ```python</span>
+   <span class="c1"># 正交投影伪代码</span>
+   <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_dirs</span><span class="p">):</span>
+       <span class="n">w_j</span> <span class="o">=</span> <span class="n">W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+       <span class="n">g_j</span> <span class="o">=</span> <span class="n">grad_W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+       <span class="c1"># 投影到与w_j正交的方向</span>
+       <span class="n">grad_W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">g_j</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_j</span><span class="p">,</span> <span class="n">w_j</span><span class="p">)</span> <span class="o">*</span> <span class="n">w_j</span>
+<span class="sb">   ```</span>
+</code></pre></div>
 
 
 
