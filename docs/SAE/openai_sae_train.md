@@ -1073,96 +1073,80 @@ if __name__ == "__main__":
 
 ### 计算图 (Mermaid)
 
-```mermaid
-flowchart TD
-    %% 输入数据
-    X[① 输入数据\nx] --> N1
-    
-    %% 主路径
-    N1["② 中心化\nx_centered = x - b_pre"] --> |E1| N2
-    N2["③ 编码\nz_pre = W_enc·x_centered + b_lat"] --> |E2| N3
-    N3["④ Top-K 稀疏化\nz = TopK(ReLU(z_pre))"] --> |E3| N4
-    N4["⑤ 解码\nx_partial = W_dec·z"] --> |E4| N5
-    N5["⑥ 添加偏置\nx_hat = x_partial + b_pre"] --> |E5| N6
-    N6["⑦ 主损失\nL_MSE = MSE(x_hat, x)"] --> |E6| N7
-    N7["⑧ 缩放\nscaled_L_MSE = mse_scale·L_MSE"] --> |E7| N12
-    
-    %% 辅助路径
-    N3 --> |E2| N8
-    N5 --> |E5| N9
-    N8["⑨ AuxK 稀疏化\nz_auxk = AuxK(ReLU(z_pre))"] --> |E8| N10
-    N9["⑩ 残差计算\nr = (x - x_hat).detach()"] --> |E9| N11
-    N10["⑪ 辅助解码\nr_hat = W_dec·z_auxk"] --> |E10| N11
-    N11["⑫ 辅助损失\nL_AuxK = auxk_coef·||r_hat-r||²/||r||²"] --> |E11| N12
-    
-    %% 总损失
-    N12["⑬ 总损失\nL_total = scaled_L_MSE + L_AuxK"] --> |E12| N13
-    N13["⑭ 反向传播\nloss.backward()"] --> |梯度| N14
-    N14["⑮ 梯度调整\nproj⟂(∇W_dec)"] --> N15
-    N15["⑯ 参数更新\nopt.step()"] --> N16
-    N16["⑰ 权重归一化\n||W_dec[:,j]||=1"]
-```
+![Alt text](<mermaid-202577 111231.png>)
 
 ### 数学公式详解
 
 #### 前向传播公式
-```markdown
+
 1. **② 中心化**：
+
    $$
    \text{E1: } \mathbf{x}_{\text{centered}} = \mathbf{x} - \mathbf{b}_{\text{pre}}
    $$
 
 2. **③ 编码**：
+
    $$
    \text{E2: } \mathbf{z}_{\text{pre}} = \mathbf{W}_{\text{enc}} \mathbf{x}_{\text{centered}} + \mathbf{b}_{\text{lat}}
    $$
 
 3. **④ Top-K 稀疏化**：
+
    $$
    \text{E3: } \mathbf{z} = \text{TopK}_k(\operatorname{ReLU}(\mathbf{z}_{\text{pre}}))
    $$
 
 4. **⑤ 解码**：
+
    $$
    \text{E4: } \mathbf{x}_{\text{partial}} = \mathbf{W}_{\text{dec}} \mathbf{z}
    $$
 
 5. **⑥ 添加偏置**：
+
    $$
    \text{E5: } \hat{\mathbf{x}} = \mathbf{x}_{\text{partial}} + \mathbf{b}_{\text{pre}}
    $$
 
 6. **⑦ 主损失**：
+
    $$
    \text{E6: } \mathcal{L}_{\text{MSE}} = \frac{1}{d} \|\hat{\mathbf{x}} - \mathbf{x}\|^2_2
    $$
 
 7. **⑧ 缩放**：
+
    $$
    \text{E7: } \mathcal{L}_{\text{scaled}} = \alpha \cdot \mathcal{L}_{\text{MSE}} \quad (\alpha = \text{mse\_scale})
    $$
 
 8. **⑨ AuxK 稀疏化**：
+
    $$
    \text{E8: } \mathbf{z}_{\text{auxk}} = \text{TopK}_{\text{auxk}}(\operatorname{ReLU}(\mathbf{z}_{\text{pre}} \odot \mathbb{I}_{\text{dead}}))
    $$
 
 9. **⑩ 残差计算**：
+
    $$
    \text{E9: } \mathbf{r} = (\mathbf{x} - \hat{\mathbf{x}}).\text{detach()}
    $$
 
 10. **⑪ 辅助解码**：
+
     $$
     \text{E10: } \hat{\mathbf{r}} = \mathbf{W}_{\text{dec}}[:, \mathcal{I}] \mathbf{v} \quad (\mathcal{I} = \text{auxk\_indices})
     $$
 
 11. **⑫ 辅助损失**：
+
     $$
     \text{E11: } \mathcal{L}_{\text{AuxK}} = \beta \cdot \frac{\|\hat{\mathbf{r}} - \mathbf{r}\|^2_2}{\|\mathbf{r}\|^2_2 + \epsilon} \quad (\beta = \text{auxk\_coef})
     $$
 
 12. **⑬ 总损失**：
+
     $$
     \text{E12: } \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{scaled}} + \mathcal{L}_{\text{AuxK}}
     $$
@@ -1170,41 +1154,49 @@ flowchart TD
 #### 反向传播公式
 
 1. **⑭ 反向传播起点**：
+
    $$
    \nabla_{\mathcal{L}_{\text{total}}} = 1
    $$
 
 2. **⑬ 总损失梯度**：
+
    $$
    \nabla_{\mathcal{L}_{\text{scaled}}} = 1, \quad \nabla_{\mathcal{L}_{\text{AuxK}}} = 1
    $$
 
 3. **⑧ 缩放梯度**：
+
    $$
    \nabla_{\mathcal{L}_{\text{MSE}}} = \alpha
    $$
 
 4. **⑦ 主损失梯度**：
+
    $$
    \nabla_{\hat{\mathbf{x}}} = \frac{2\alpha}{d} (\hat{\mathbf{x}} - \mathbf{x})
    $$
 
 5. **⑥ 添加偏置梯度**：
+
    $$
    \nabla_{\mathbf{x}_{\text{partial}}} = \nabla_{\hat{\mathbf{x}}}, \quad \nabla_{\mathbf{b}_{\text{pre}}} = \sum \nabla_{\hat{\mathbf{x}}}
    $$
 
 6. **⑤ 解码梯度**：
+
    $$
    \nabla_{\mathbf{W}_{\text{dec}}^{\text{(main)}}} = \nabla_{\mathbf{x}_{\text{partial}}} \mathbf{z}^\top, \quad \nabla_{\mathbf{z}} = \mathbf{W}_{\text{dec}}^\top \nabla_{\mathbf{x}_{\text{partial}}}
    $$
 
 7. **⑫ 辅助损失梯度**：
+
    $$
    \nabla_{\hat{\mathbf{r}}} = \frac{2\beta}{\|\mathbf{r}\|^2_2 + \epsilon} (\hat{\mathbf{r}} - \mathbf{r})
    $$
 
 8. **⑪ 辅助解码梯度**：
+
    $$
    \nabla_{\mathbf{W}_{\text{dec}}^{\text{(aux)}}}[:, j] = 
    \begin{cases} 
@@ -1214,6 +1206,7 @@ flowchart TD
    $$
 
 9. **④ Top-K 梯度**：
+
    $$
    \nabla_{\mathbf{z}_{\text{pre}, i}} = 
    \begin{cases} 
@@ -1223,22 +1216,26 @@ flowchart TD
    $$
 
 10. **③ 编码梯度**：
+
     $$
     \nabla_{\mathbf{W}_{\text{enc}}} = \nabla_{\mathbf{z}_{\text{pre}}} \mathbf{x}_{\text{centered}}^\top, \quad 
     \nabla_{\mathbf{b}_{\text{lat}}} = \sum \nabla_{\mathbf{z}_{\text{pre}}}
     $$
 
 11. **② 中心化梯度**：
+
     $$
     \nabla_{\mathbf{x}_{\text{centered}}} = \mathbf{W}_{\text{enc}}^\top \nabla_{\mathbf{z}_{\text{pre}}}
     $$
 
 12. **⑮ 梯度调整**：
+
     $$
     \nabla_{\mathbf{W}_{\text{dec}}}^{\text{(adj)}} = \nabla_{\mathbf{W}_{\text{dec}}} - \text{diag}(\mathbf{w}_j^\top \nabla_{\mathbf{W}_{\text{dec}}}) \mathbf{W}_{\text{dec}}
     $$
 
 13. **⑰ 权重归一化**：
+
     $$
     \mathbf{W}_{\text{dec}}[:, j] \leftarrow \frac{\mathbf{W}_{\text{dec}}[:, j]}{\|\mathbf{W}_{\text{dec}}[:, j]\|_2}
     $$
@@ -1262,6 +1259,7 @@ flowchart TD
    - 确保辅助训练只激活"死亡神经元"，不干扰主特征学习
 
 4. **参数更新范围**：
+
    | 参数        | 主路径更新 | 辅助路径更新 |
    |------------|-----------|------------|
    | `W_enc`    | ✓         | ✓          |
@@ -1278,4 +1276,3 @@ flowchart TD
        # 投影到与w_j正交的方向
        grad_W_dec[:, j] = g_j - torch.dot(g_j, w_j) * w_j
    ```
-```
