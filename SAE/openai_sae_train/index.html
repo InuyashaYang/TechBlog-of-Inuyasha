@@ -1,0 +1,2137 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../../Docker/dockerfile_construct/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.40">
+    
+    
+      
+        <title>SAE_Train - Inuyasha's TechBlog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mermaid" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Inuyasha&#39;s TechBlog" class="md-header__button md-logo" aria-label="Inuyasha's TechBlog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Inuyasha's TechBlog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SAE_Train
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  SAE_Train
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Docker/dockerfile_construct/" class="md-tabs__link">
+          
+  
+  Docker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Lean4/Lean4_Python/" class="md-tabs__link">
+          
+  
+  Lean4
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lean_agent/" class="md-tabs__link">
+        
+  
+    
+  
+  Lean Agent
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../eval_agent/" class="md-tabs__link">
+        
+  
+    
+  
+  Eval Agent
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Inuyasha&#39;s TechBlog" class="md-nav__button md-logo" aria-label="Inuyasha's TechBlog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Inuyasha's TechBlog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SAE_Train
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SAE_Train
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算图 (Mermaid)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      数学公式详解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数学公式详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      前向传播公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      反向传播公式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度传播路径特性
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Docker
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Docker
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker/dockerfile_construct/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dockerfile 构建经验
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Docker/docker_image_container/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker镜像部署与发布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lean4
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Lean4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lean4/Lean4_Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    同python对照的lean4教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lean4/LeetCode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用lean4求解Leetcode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lean4/LeanFunction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用lean4解数学方程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lean_agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lean Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../eval_agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eval Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      计算图 (Mermaid)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      数学公式详解
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数学公式详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      前向传播公式
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      反向传播公式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      梯度传播路径特性
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>SAE_Train</h1>
+
+<p>这里粘贴一下OpenAI在https://github.com/openai/sparse_autoencoder库中的train.py源代码，这段代码里面的料非常多，不过不便于迅速理解并进行部署，我们会慢慢学习并解读：</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># bare bones training script using sparse kernels and sharding/data parallel.</span>
+<span class="c1"># the main purpose of this code is to provide a reference implementation to compare</span>
+<span class="c1"># against when implementing our training methodology into other codebases, and to</span>
+<span class="c1"># demonstrate how sharding/DP can be implemented for autoencoders. some limitations:</span>
+<span class="c1"># - many basic features (e.g checkpointing, data loading, validation) are not implemented,</span>
+<span class="c1"># - the codebase is not designed to be extensible or easily hackable.</span>
+<span class="c1"># - this code is not guaranteed to run efficiently out of the box / in</span>
+<span class="c1">#   combination with other changes, so you should profile it and make changes as needed.</span>
+<span class="c1">#</span>
+<span class="c1"># example launch command:</span>
+<span class="c1">#    torchrun --nproc-per-node 8 train.py</span>
+
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">triton</span>
+<span class="kn">import</span> <span class="nn">triton.language</span> <span class="k">as</span> <span class="nn">tl</span>
+<span class="kn">from</span> <span class="nn">sparse_autoencoder.kernels</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">torch.distributed</span> <span class="kn">import</span> <span class="n">ReduceOp</span>
+
+<span class="n">RANK</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span>
+
+
+<span class="c1">## parallelism</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Comm</span><span class="p">:</span>
+    <span class="n">group</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">ProcessGroup</span>
+
+    <span class="k">def</span> <span class="nf">all_reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">op</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="n">async_op</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">all_gather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_list</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">all_gather</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">x_list</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="n">async_op</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">broadcast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="n">async_op</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">barrier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dist</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ShardingComms</span><span class="p">:</span>
+    <span class="n">n_replicas</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">n_op_shards</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">dp_rank</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">sh_rank</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">dp_comm</span><span class="p">:</span> <span class="n">Comm</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">sh_comm</span><span class="p">:</span> <span class="n">Comm</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">_rank</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="k">def</span> <span class="nf">sh_allreduce_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="k">class</span> <span class="nc">AllreduceForward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">input</span>
+
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">grad_output</span>
+
+        <span class="k">return</span> <span class="n">AllreduceForward</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+    <span class="k">def</span> <span class="nf">sh_allreduce_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="k">class</span> <span class="nc">AllreduceBackward</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">input</span>
+
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+                <span class="n">grad_output</span> <span class="o">=</span> <span class="n">grad_output</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+                <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">grad_output</span>
+
+        <span class="k">return</span> <span class="n">AllreduceBackward</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+    <span class="k">def</span> <span class="nf">init_broadcast_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">autoencoder</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dp_comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dp_comm</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span>
+                    <span class="n">maybe_transpose</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+                    <span class="n">replica_shard_to_rank</span><span class="p">(</span>
+                        <span class="n">replica_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">shard_idx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sh_rank</span><span class="p">,</span>
+                        <span class="n">n_op_shards</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_op_shards</span><span class="p">,</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># pre_bias is the same across all shards</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span>
+                <span class="n">autoencoder</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">replica_shard_to_rank</span><span class="p">(</span>
+                    <span class="n">replica_idx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dp_rank</span><span class="p">,</span>
+                    <span class="n">shard_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">n_op_shards</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_op_shards</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">dp_allreduce_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">autoencoder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dp_comm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dp_comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">maybe_transpose</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">grad</span><span class="p">),</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">AVG</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># make sure statistics for dead neurons are correct</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dp_comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+            <span class="n">autoencoder</span><span class="o">.</span><span class="n">stats_last_nonzero</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">MIN</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">sh_allreduce_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scaler</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">scaler</span><span class="p">,</span> <span class="s2">&quot;_scale&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">scaler</span><span class="o">.</span><span class="n">_scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">_scale</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">MIN</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">_growth_tracker</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">ReduceOp</span><span class="o">.</span><span class="n">MIN</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_sh_comm_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">is_cuda</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">op</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">sh_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sh_comm_op</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ReduceOp</span><span class="o">.</span><span class="n">SUM</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">all_broadcast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dp_comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dp_comm</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">replica_shard_to_rank</span><span class="p">(</span>
+                    <span class="n">replica_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">shard_idx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sh_rank</span><span class="p">,</span>
+                    <span class="n">n_op_shards</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_op_shards</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span>
+                <span class="n">replica_shard_to_rank</span><span class="p">(</span>
+                    <span class="n">replica_idx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dp_rank</span><span class="p">,</span>
+                    <span class="n">shard_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">n_op_shards</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_op_shards</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="k">def</span> <span class="nf">make_torch_comms</span><span class="p">(</span><span class="n">n_op_shards</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_replicas</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&quot;RANK&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">n_op_shards</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">assert</span> <span class="n">n_replicas</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">TRIVIAL_COMMS</span>
+
+    <span class="n">rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RANK&quot;</span><span class="p">))</span>
+    <span class="n">world_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;WORLD_SIZE&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rank</span> <span class="o">%</span> <span class="mi">8</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rank</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">world_size</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="s2">&quot;nccl&quot;</span><span class="p">)</span>
+
+    <span class="n">my_op_shard_idx</span> <span class="o">=</span> <span class="n">rank</span> <span class="o">%</span> <span class="n">n_op_shards</span>
+    <span class="n">my_replica_idx</span> <span class="o">=</span> <span class="n">rank</span> <span class="o">//</span> <span class="n">n_op_shards</span>
+
+    <span class="n">shard_rank_lists</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">n_op_shards</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">world_size</span><span class="p">,</span> <span class="n">n_op_shards</span><span class="p">)]</span>
+
+    <span class="n">shard_groups</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">new_group</span><span class="p">(</span><span class="n">shard_rank_list</span><span class="p">)</span> <span class="k">for</span> <span class="n">shard_rank_list</span> <span class="ow">in</span> <span class="n">shard_rank_lists</span><span class="p">]</span>
+
+    <span class="n">my_shard_group</span> <span class="o">=</span> <span class="n">shard_groups</span><span class="p">[</span><span class="n">my_replica_idx</span><span class="p">]</span>
+
+    <span class="n">replica_rank_lists</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n_op_shards</span> <span class="o">*</span> <span class="n">n_replicas</span><span class="p">,</span> <span class="n">n_op_shards</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_op_shards</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">replica_groups</span> <span class="o">=</span> <span class="p">[</span><span class="n">dist</span><span class="o">.</span><span class="n">new_group</span><span class="p">(</span><span class="n">replica_rank_list</span><span class="p">)</span> <span class="k">for</span> <span class="n">replica_rank_list</span> <span class="ow">in</span> <span class="n">replica_rank_lists</span><span class="p">]</span>
+
+    <span class="n">my_replica_group</span> <span class="o">=</span> <span class="n">replica_groups</span><span class="p">[</span><span class="n">my_op_shard_idx</span><span class="p">]</span>
+
+    <span class="n">torch</span><span class="o">.</span><span class="n">distributed</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">())</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
+
+    <span class="n">dp_comm</span> <span class="o">=</span> <span class="n">Comm</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">my_replica_group</span><span class="p">)</span>
+    <span class="n">sh_comm</span> <span class="o">=</span> <span class="n">Comm</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="n">my_shard_group</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ShardingComms</span><span class="p">(</span>
+        <span class="n">n_replicas</span><span class="o">=</span><span class="n">n_replicas</span><span class="p">,</span>
+        <span class="n">n_op_shards</span><span class="o">=</span><span class="n">n_op_shards</span><span class="p">,</span>
+        <span class="n">dp_comm</span><span class="o">=</span><span class="n">dp_comm</span><span class="p">,</span>
+        <span class="n">sh_comm</span><span class="o">=</span><span class="n">sh_comm</span><span class="p">,</span>
+        <span class="n">dp_rank</span><span class="o">=</span><span class="n">my_replica_idx</span><span class="p">,</span>
+        <span class="n">sh_rank</span><span class="o">=</span><span class="n">my_op_shard_idx</span><span class="p">,</span>
+        <span class="n">_rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">replica_shard_to_rank</span><span class="p">(</span><span class="n">replica_idx</span><span class="p">,</span> <span class="n">shard_idx</span><span class="p">,</span> <span class="n">n_op_shards</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">replica_idx</span> <span class="o">*</span> <span class="n">n_op_shards</span> <span class="o">+</span> <span class="n">shard_idx</span>
+
+
+<span class="n">TRIVIAL_COMMS</span> <span class="o">=</span> <span class="n">ShardingComms</span><span class="p">(</span>
+    <span class="n">n_replicas</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">n_op_shards</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">dp_rank</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">sh_rank</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">dp_comm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">sh_comm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">_rank</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">sharded_topk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sh_comm</span><span class="p">,</span> <span class="n">capacity_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">capacity_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">k_in</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">capacity_factor</span> <span class="o">//</span> <span class="n">sh_comm</span><span class="o">.</span><span class="n">size</span><span class="p">()),</span> <span class="n">k</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k_in</span> <span class="o">=</span> <span class="n">k</span>
+
+    <span class="n">topk</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k_in</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">inds</span> <span class="o">=</span> <span class="n">topk</span><span class="o">.</span><span class="n">indices</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">topk</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="k">if</span> <span class="n">sh_comm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">inds</span><span class="p">,</span> <span class="n">vals</span>
+
+    <span class="n">all_vals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">sh_comm</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">batch</span><span class="p">,</span> <span class="n">k_in</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">vals</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">vals</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">sh_comm</span><span class="o">.</span><span class="n">all_gather</span><span class="p">(</span><span class="n">all_vals</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">async_op</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">all_vals</span> <span class="o">=</span> <span class="n">all_vals</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># put shard dim next to k</span>
+    <span class="n">all_vals</span> <span class="o">=</span> <span class="n">all_vals</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># flatten shard into k</span>
+
+    <span class="n">all_topk</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">all_vals</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">global_topk</span> <span class="o">=</span> <span class="n">all_topk</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">dummy_vals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+    <span class="n">dummy_inds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">inds</span><span class="p">)</span>
+
+    <span class="n">my_inds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vals</span> <span class="o">&gt;=</span> <span class="n">global_topk</span><span class="p">[:,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">inds</span><span class="p">,</span> <span class="n">dummy_inds</span><span class="p">)</span>
+    <span class="n">my_vals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vals</span> <span class="o">&gt;=</span> <span class="n">global_topk</span><span class="p">[:,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">vals</span><span class="p">,</span> <span class="n">dummy_vals</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">my_inds</span><span class="p">,</span> <span class="n">my_vals</span>
+
+
+<span class="c1">## autoencoder</span>
+
+
+<span class="k">class</span> <span class="nc">FastAutoencoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Top-K Autoencoder with sparse kernels. Implements:</span>
+
+<span class="sd">        latents = relu(topk(encoder(x - pre_bias) + latent_bias))</span>
+<span class="sd">        recons = decoder(latents) + pre_bias</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_dirs_local</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">auxk</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dead_steps_threshold</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">comms</span><span class="p">:</span> <span class="n">ShardingComms</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_dirs_local</span> <span class="o">=</span> <span class="n">n_dirs_local</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_model</span> <span class="o">=</span> <span class="n">d_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auxk</span> <span class="o">=</span> <span class="n">auxk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comms</span> <span class="o">=</span> <span class="n">comms</span> <span class="k">if</span> <span class="n">comms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">TRIVIAL_COMMS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dead_steps_threshold</span> <span class="o">=</span> <span class="n">dead_steps_threshold</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pre_bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d_model</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latent_bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_dirs_local</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;stats_last_nonzero&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">auxk_mask_fn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">dead_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span> <span class="o">&gt;</span> <span class="n">dead_steps_threshold</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">data</span> <span class="o">*=</span> <span class="n">dead_mask</span>  <span class="c1"># inplace to save memory</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">auxk_mask_fn</span> <span class="o">=</span> <span class="n">auxk_mask_fn</span>
+
+        <span class="c1">## initialization</span>
+
+        <span class="c1"># &quot;tied&quot; init</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+        <span class="c1"># store decoder in column major layout for kernel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">unit_norm_decoder_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">n_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dirs_local</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">comms</span><span class="o">.</span><span class="n">n_op_shards</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">class</span> <span class="nc">EncWrapper</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">pre_bias</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">latent_bias</span><span class="p">):</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">pre_bias</span>
+                <span class="n">latents_pre_act</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">latent_bias</span><span class="p">)</span>
+
+                <span class="n">inds</span><span class="p">,</span> <span class="n">vals</span> <span class="o">=</span> <span class="n">sharded_topk</span><span class="p">(</span>
+                    <span class="n">latents_pre_act</span><span class="p">,</span>
+                    <span class="n">k</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
+                    <span class="n">sh_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">comms</span><span class="o">.</span><span class="n">sh_comm</span><span class="p">,</span>
+                    <span class="n">capacity_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="c1">## set num nonzero stat ##</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span><span class="p">)</span>
+                <span class="n">tmp</span><span class="o">.</span><span class="n">scatter_add_</span><span class="p">(</span>
+                    <span class="mi">0</span><span class="p">,</span>
+                    <span class="n">inds</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">vals</span> <span class="o">&gt;</span> <span class="mf">1e-3</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">tmp</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="c1">## end stats ##</span>
+
+                <span class="c1">## auxk</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auxk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># for auxk</span>
+                    <span class="c1"># IMPORTANT: has to go after stats update!</span>
+                    <span class="c1"># WARN: auxk_mask_fn can mutate latents_pre_act!</span>
+                    <span class="n">auxk_inds</span><span class="p">,</span> <span class="n">auxk_vals</span> <span class="o">=</span> <span class="n">sharded_topk</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">auxk_mask_fn</span><span class="p">(</span><span class="n">latents_pre_act</span><span class="p">),</span>
+                        <span class="n">k</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auxk</span><span class="p">,</span>
+                        <span class="n">sh_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">comms</span><span class="o">.</span><span class="n">sh_comm</span><span class="p">,</span>
+                        <span class="n">capacity_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">inds</span><span class="p">,</span> <span class="n">auxk_inds</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">inds</span><span class="p">)</span>
+                    <span class="n">auxk_inds</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">auxk_vals</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="c1">## end auxk</span>
+
+                <span class="k">return</span> <span class="p">(</span>
+                    <span class="n">inds</span><span class="p">,</span>
+                    <span class="n">vals</span><span class="p">,</span>
+                    <span class="n">auxk_inds</span><span class="p">,</span>
+                    <span class="n">auxk_vals</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="nd">@staticmethod</span>
+            <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">grad_vals</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">grad_auxk_vals</span><span class="p">):</span>
+                <span class="c1"># encoder backwards</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auxk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">inds</span><span class="p">,</span> <span class="n">auxk_inds</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
+
+                    <span class="n">all_inds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">inds</span><span class="p">,</span> <span class="n">auxk_inds</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">all_grad_vals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">grad_vals</span><span class="p">,</span> <span class="n">grad_auxk_vals</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">inds</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
+
+                    <span class="n">all_inds</span> <span class="o">=</span> <span class="n">inds</span>
+                    <span class="n">all_grad_vals</span> <span class="o">=</span> <span class="n">grad_vals</span>
+
+                <span class="n">grad_sum</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">grad_vals</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                <span class="n">grad_sum</span><span class="o">.</span><span class="n">scatter_add_</span><span class="p">(</span>
+                    <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">all_inds</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">all_grad_vals</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="p">)</span>
+
+                <span class="k">return</span> <span class="p">(</span>
+                    <span class="kc">None</span><span class="p">,</span>
+                    <span class="c1"># pre_bias grad optimization - can reduce before mat-vec multiply</span>
+                    <span class="o">-</span><span class="p">(</span><span class="n">grad_sum</span> <span class="o">@</span> <span class="n">weight</span><span class="p">),</span>
+                    <span class="n">triton_sparse_transpose_dense_matmul</span><span class="p">(</span><span class="n">all_inds</span><span class="p">,</span> <span class="n">all_grad_vals</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_dirs_local</span><span class="p">),</span>
+                    <span class="n">grad_sum</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="n">pre_bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comms</span><span class="o">.</span><span class="n">sh_allreduce_backward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pre_bias</span><span class="p">)</span>
+
+        <span class="c1"># encoder</span>
+        <span class="n">inds</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">auxk_inds</span><span class="p">,</span> <span class="n">auxk_vals</span> <span class="o">=</span> <span class="n">EncWrapper</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">pre_bias</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_bias</span>
+        <span class="p">)</span>
+
+        <span class="n">vals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">auxk_vals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">auxk_vals</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">auxk_vals</span><span class="p">)</span>
+
+        <span class="n">recons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_sparse</span><span class="p">(</span><span class="n">inds</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">recons</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;auxk_inds&quot;</span><span class="p">:</span> <span class="n">auxk_inds</span><span class="p">,</span>
+            <span class="s2">&quot;auxk_vals&quot;</span><span class="p">:</span> <span class="n">auxk_vals</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">decode_sparse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inds</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+        <span class="n">recons</span> <span class="o">=</span> <span class="n">TritonDecoderAutograd</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">inds</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
+        <span class="n">recons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comms</span><span class="o">.</span><span class="n">sh_allreduce_forward</span><span class="p">(</span><span class="n">recons</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">recons</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_bias</span>
+
+
+<span class="k">def</span> <span class="nf">unit_norm_decoder_</span><span class="p">(</span><span class="n">autoencoder</span><span class="p">:</span> <span class="n">FastAutoencoder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unit normalize the decoder weights of an autoencoder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">/=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">unit_norm_decoder_grad_adjustment_</span><span class="p">(</span><span class="n">autoencoder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;project out gradient information parallel to the dictionary vectors - assumes that the decoder is already unit normed&quot;&quot;&quot;</span>
+
+    <span class="k">assert</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="n">triton_add_mul_</span><span class="p">(</span>
+        <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span><span class="p">,</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;bn,bn-&gt;n&quot;</span><span class="p">,</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span><span class="p">),</span>
+        <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">maybe_transpose</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">()</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">is_contiguous</span><span class="p">()</span> <span class="k">else</span> <span class="n">x</span>
+
+
+<span class="k">def</span> <span class="nf">sharded_grad_norm</span><span class="p">(</span><span class="n">autoencoder</span><span class="p">,</span> <span class="n">comms</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">total_sq_norm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((),</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">exclude</span><span class="p">)</span>
+
+    <span class="n">total_num_params</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sq_norm</span> <span class="o">=</span> <span class="p">((</span><span class="n">param</span><span class="o">.</span><span class="n">grad</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">pre_bias</span><span class="p">:</span>
+                <span class="n">total_sq_norm</span> <span class="o">+=</span> <span class="n">sq_norm</span>  <span class="c1"># pre_bias is the same across all shards</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">total_sq_norm</span> <span class="o">+=</span> <span class="n">comms</span><span class="o">.</span><span class="n">sh_sum</span><span class="p">(</span><span class="n">sq_norm</span><span class="p">)</span>
+
+            <span class="n">param_shards</span> <span class="o">=</span> <span class="n">comms</span><span class="o">.</span><span class="n">n_op_shards</span> <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">pre_bias</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="n">total_num_params</span> <span class="o">+=</span> <span class="n">param</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">*</span> <span class="n">param_shards</span>
+
+    <span class="k">return</span> <span class="n">total_sq_norm</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">batch_tensors</span><span class="p">(</span>
+    <span class="n">it</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">drop_last</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">stream</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    input is iterable of tensors of shape [batch_old, ...]</span>
+<span class="sd">    output is iterable of tensors of shape [batch_size, ...]</span>
+<span class="sd">    batch_old does not need to be divisible by batch_size</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tensors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">batch_so_far</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+        <span class="n">tensors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">batch_so_far</span> <span class="o">+=</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tensors</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">batch_size</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="k">while</span> <span class="n">batch_so_far</span> <span class="o">&gt;=</span> <span class="n">batch_size</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">concat</span><span class="p">,)</span> <span class="o">=</span> <span class="n">tensors</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+                    <span class="n">concat</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">tensors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">batch_size</span> <span class="o">&lt;=</span> <span class="n">concat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="k">yield</span> <span class="n">concat</span><span class="p">[</span><span class="n">offset</span> <span class="p">:</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]</span>
+                <span class="n">batch_so_far</span> <span class="o">-=</span> <span class="n">batch_size</span>
+                <span class="n">offset</span> <span class="o">+=</span> <span class="n">batch_size</span>
+
+            <span class="n">tensors</span> <span class="o">=</span> <span class="p">[</span><span class="n">concat</span><span class="p">[</span><span class="n">offset</span><span class="p">:]]</span> <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">concat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">else</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">drop_last</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">tensors</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">print0</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">)</span>
+
+
+<span class="kn">import</span> <span class="nn">wandb</span>
+
+
+<span class="k">class</span> <span class="nc">Logger</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="p">(</span><span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dummy&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+                <span class="o">**</span><span class="n">kws</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">logkv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">dumpkvs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="k">def</span> <span class="nf">training_loop_</span><span class="p">(</span>
+    <span class="n">ae</span><span class="p">,</span> <span class="n">train_acts_iter</span><span class="p">,</span> <span class="n">loss_fn</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">comms</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">6.25e-10</span><span class="p">,</span> <span class="n">clip_grad</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ema_multiplier</span><span class="o">=</span><span class="mf">0.999</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="n">dummy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">GradScaler</span><span class="p">()</span>
+    <span class="n">autocast_ctx_manager</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">amp</span><span class="o">.</span><span class="n">autocast</span><span class="p">()</span>
+
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">fused</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ema_multiplier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ema</span> <span class="o">=</span> <span class="n">EmaModel</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">ema_multiplier</span><span class="o">=</span><span class="n">ema_multiplier</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">flat_acts_train_batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_acts_iter</span><span class="p">):</span>
+        <span class="n">flat_acts_train_batch</span> <span class="o">=</span> <span class="n">flat_acts_train_batch</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">autocast_ctx_manager</span><span class="p">:</span>
+            <span class="n">recons</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">ae</span><span class="p">(</span><span class="n">flat_acts_train_batch</span><span class="p">)</span>
+
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">flat_acts_train_batch</span><span class="p">,</span> <span class="n">recons</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span>
+
+        <span class="n">print0</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">logkv</span><span class="p">(</span><span class="s2">&quot;loss_scale&quot;</span><span class="p">,</span> <span class="n">scaler</span><span class="o">.</span><span class="n">get_scale</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">RANK</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">({</span><span class="s2">&quot;train_loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()})</span>
+
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+
+        <span class="n">unit_norm_decoder_</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+        <span class="n">unit_norm_decoder_grad_adjustment_</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+
+        <span class="c1"># allreduce gradients</span>
+        <span class="n">comms</span><span class="o">.</span><span class="n">dp_allreduce_</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+
+        <span class="c1"># keep fp16 loss scale synchronized across shards</span>
+        <span class="n">comms</span><span class="o">.</span><span class="n">sh_allreduce_scale</span><span class="p">(</span><span class="n">scaler</span><span class="p">)</span>
+
+        <span class="c1"># if you want to do anything with the gradients that depends on the absolute scale (e.g clipping, do it after the unscale_)</span>
+        <span class="n">scaler</span><span class="o">.</span><span class="n">unscale_</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+
+        <span class="c1"># gradient clipping</span>
+        <span class="k">if</span> <span class="n">clip_grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">grad_norm</span> <span class="o">=</span> <span class="n">sharded_grad_norm</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">comms</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">logkv</span><span class="p">(</span><span class="s2">&quot;grad_norm&quot;</span><span class="p">,</span> <span class="n">grad_norm</span><span class="p">)</span>
+            <span class="n">grads</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">grad</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ae</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_mul_</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="n">clip_grad</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">grad_norm</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="n">clip_grad</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">ema_multiplier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ema</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="c1"># take step with optimizer</span>
+        <span class="n">scaler</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">opt</span><span class="p">)</span>
+        <span class="n">scaler</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">dumpkvs</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">init_from_data_</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">stats_acts_sample</span><span class="p">,</span> <span class="n">comms</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">geom_median.torch</span> <span class="kn">import</span> <span class="n">compute_geometric_median</span>
+
+    <span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">compute_geometric_median</span><span class="p">(</span><span class="n">stats_acts_sample</span><span class="p">[:</span><span class="mi">32768</span><span class="p">]</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span><span class="o">.</span><span class="n">median</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">comms</span><span class="o">.</span><span class="n">all_broadcast</span><span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="c1"># encoder initialization (note: in our ablations we couldn&#39;t find clear evidence that this is beneficial, this is just to ensure exact match with internal codebase)</span>
+    <span class="n">d_model</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">d_model</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">stats_acts_sample</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">/=</span> <span class="n">x</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">comms</span><span class="o">.</span><span class="n">all_broadcast</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">recons</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ae</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">recons_norm</span> <span class="o">=</span> <span class="p">(</span><span class="n">recons</span> <span class="o">-</span> <span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">ae</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">/=</span> <span class="n">recons_norm</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">print0</span><span class="p">(</span><span class="s2">&quot;x norm&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">print0</span><span class="p">(</span><span class="s2">&quot;out norm&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">ae</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">temporary_weight_swap</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">new_weights</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">_p</span><span class="p">,</span> <span class="n">new_p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">new_weights</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">_p</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">new_p</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">_p</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">new_p</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_p</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">_p</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="k">yield</span>
+
+    <span class="k">for</span> <span class="n">_p</span><span class="p">,</span> <span class="n">new_p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">new_weights</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">_p</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">new_p</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">_p</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">new_p</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">new_p</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">_p</span><span class="o">.</span><span class="n">data</span>
+
+
+<span class="k">class</span> <span class="nc">EmaModel</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">ema_multiplier</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ema_multiplier</span> <span class="o">=</span> <span class="n">ema_multiplier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ema_weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ema_steps</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_lerp_</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ema_weights</span><span class="p">,</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span>
+            <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ema_multiplier</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ema_steps</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># context manager for setting the autoencoder weights to the EMA weights</span>
+    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">use_ema_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">ema_steps</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+        <span class="c1"># apply bias correction</span>
+        <span class="n">bias_correction</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ema_multiplier</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ema_steps</span>
+        <span class="n">ema_weights_bias_corrected</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_foreach_div</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ema_weights</span><span class="p">,</span> <span class="n">bias_correction</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">with</span> <span class="n">temporary_weight_swap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">ema_weights_bias_corrected</span><span class="p">):</span>
+                <span class="k">yield</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="n">n_op_shards</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">n_replicas</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="n">n_dirs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32768</span>
+    <span class="n">bs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">131072</span>
+    <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">768</span>
+    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">auxk</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span>
+
+    <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span>
+    <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6.25e-10</span>
+    <span class="n">clip_grad</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">auxk_coef</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">32</span>
+    <span class="n">dead_toks_threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span>
+    <span class="n">ema_multiplier</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">wandb_project</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">wandb_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">comms</span> <span class="o">=</span> <span class="n">make_torch_comms</span><span class="p">(</span><span class="n">n_op_shards</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">n_op_shards</span><span class="p">,</span> <span class="n">n_replicas</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">n_replicas</span><span class="p">)</span>
+
+    <span class="c1">## dataloading is left as an exercise for the reader</span>
+    <span class="n">acts_iter</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="n">stats_acts_sample</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="n">n_dirs_local</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">n_dirs</span> <span class="o">//</span> <span class="n">cfg</span><span class="o">.</span><span class="n">n_op_shards</span>
+    <span class="n">bs_local</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">bs</span> <span class="o">//</span> <span class="n">cfg</span><span class="o">.</span><span class="n">n_replicas</span>
+
+    <span class="n">ae</span> <span class="o">=</span> <span class="n">FastAutoencoder</span><span class="p">(</span>
+        <span class="n">n_dirs_local</span><span class="o">=</span><span class="n">n_dirs_local</span><span class="p">,</span>
+        <span class="n">d_model</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">d_model</span><span class="p">,</span>
+        <span class="n">k</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
+        <span class="n">auxk</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">auxk</span><span class="p">,</span>
+        <span class="n">dead_steps_threshold</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">dead_toks_threshold</span> <span class="o">//</span> <span class="n">cfg</span><span class="o">.</span><span class="n">bs</span><span class="p">,</span>
+        <span class="n">comms</span><span class="o">=</span><span class="n">comms</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">ae</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+    <span class="n">init_from_data_</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">stats_acts_sample</span><span class="p">,</span> <span class="n">comms</span><span class="p">)</span>
+    <span class="c1"># IMPORTANT: make sure all DP ranks have the same params</span>
+    <span class="n">comms</span><span class="o">.</span><span class="n">init_broadcast_</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+
+    <span class="n">mse_scale</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">1</span> <span class="o">/</span> <span class="p">((</span><span class="n">stats_acts_sample</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">stats_acts_sample</span><span class="o">.</span><span class="n">float</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">comms</span><span class="o">.</span><span class="n">all_broadcast</span><span class="p">(</span><span class="n">mse_scale</span><span class="p">)</span>
+    <span class="n">mse_scale</span> <span class="o">=</span> <span class="n">mse_scale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span>
+        <span class="n">project</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">wandb_project</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">wandb_name</span><span class="p">,</span>
+        <span class="n">dummy</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">wandb_project</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">training_loop_</span><span class="p">(</span>
+        <span class="n">ae</span><span class="p">,</span>
+        <span class="n">batch_tensors</span><span class="p">(</span>
+            <span class="n">acts_iter</span><span class="p">,</span>
+            <span class="n">bs_local</span><span class="p">,</span>
+            <span class="n">drop_last</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="k">lambda</span> <span class="n">ae</span><span class="p">,</span> <span class="n">flat_acts_train_batch</span><span class="p">,</span> <span class="n">recons</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="p">(</span>
+            <span class="c1"># MSE</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">logkv</span><span class="p">(</span><span class="s2">&quot;train_recons&quot;</span><span class="p">,</span> <span class="n">mse_scale</span> <span class="o">*</span> <span class="n">mse</span><span class="p">(</span><span class="n">recons</span><span class="p">,</span> <span class="n">flat_acts_train_batch</span><span class="p">))</span>
+            <span class="c1"># AuxK</span>
+            <span class="o">+</span> <span class="n">logger</span><span class="o">.</span><span class="n">logkv</span><span class="p">(</span>
+                <span class="s2">&quot;train_maxk_recons&quot;</span><span class="p">,</span>
+                <span class="n">cfg</span><span class="o">.</span><span class="n">auxk_coef</span>
+                <span class="o">*</span> <span class="n">normalized_mse</span><span class="p">(</span>
+                    <span class="n">ae</span><span class="o">.</span><span class="n">decode_sparse</span><span class="p">(</span>
+                        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;auxk_inds&quot;</span><span class="p">],</span>
+                        <span class="n">info</span><span class="p">[</span><span class="s2">&quot;auxk_vals&quot;</span><span class="p">],</span>
+                    <span class="p">),</span>
+                    <span class="n">flat_acts_train_batch</span> <span class="o">-</span> <span class="n">recons</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span> <span class="o">+</span> <span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">lr</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span>
+        <span class="n">eps</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
+        <span class="n">clip_grad</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">clip_grad</span><span class="p">,</span>
+        <span class="n">ema_multiplier</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">ema_multiplier</span><span class="p">,</span>
+        <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span>
+        <span class="n">comms</span><span class="o">=</span><span class="n">comms</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+我们创建了一个简化版的训练代码，抛弃了其中所有的分布式运行、高效训练和模型平滑操作，并补充了其中的数据训练类：
+<div class="highlight"><pre><span></span><code><span class="c1"># sparse_autoencoder/my_train.py</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">wandb</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="c1"># 关键修改：使用相对导入，从当前包中导入其他模块</span>
+<span class="c1"># 假设 FastAutoencoder 等核心逻辑已经包含在本文件中</span>
+<span class="c1"># 如果需要从其他文件导入，例如 model.py, 可以用 from .model import Autoencoder</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># 1. 从 sparse_autoencoder/train.py 复制的核心代码 (已恢复AuxK逻辑)</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="c1"># --- 并行通信简化 ---</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ShardingComms</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">sh_allreduce_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span>
+    <span class="k">def</span> <span class="nf">sh_allreduce_backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span>
+    <span class="k">def</span> <span class="nf">init_broadcast_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">autoencoder</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">dp_allreduce_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">autoencoder</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">sh_allreduce_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scaler</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">sh_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span>
+    <span class="k">def</span> <span class="nf">all_broadcast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">TRIVIAL_COMMS</span> <span class="o">=</span> <span class="n">ShardingComms</span><span class="p">()</span>
+
+<span class="c1"># --- Autoencoder 模型 (恢复了AuxK逻辑) ---</span>
+<span class="k">class</span> <span class="nc">FastAutoencoder</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">auxk</span><span class="p">,</span> <span class="n">dead_steps_threshold</span><span class="p">,</span> <span class="n">comms</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_dirs_local</span> <span class="o">=</span> <span class="n">n_dirs_local</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_model</span> <span class="o">=</span> <span class="n">d_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auxk</span> <span class="o">=</span> <span class="n">auxk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comms</span> <span class="o">=</span> <span class="n">comms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dead_steps_threshold</span> <span class="o">=</span> <span class="n">dead_steps_threshold</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_model</span><span class="p">,</span> <span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">d_model</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pre_bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d_model</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latent_bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_dirs_local</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s2">&quot;stats_last_nonzero&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">unit_norm_decoder_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">auxk_mask_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># 模拟原始代码中的dead_mask逻辑</span>
+        <span class="n">dead_mask</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">dead_steps_threshold</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">dead_mask</span> <span class="c1"># 乘以0或1</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x_centered</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_bias</span>
+        <span class="n">latents_pre_act</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x_centered</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_bias</span><span class="p">)</span>
+
+        <span class="c1"># TopK for main loss</span>
+        <span class="n">vals</span><span class="p">,</span> <span class="n">inds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">latents_pre_act</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># 更新神经元活跃度统计</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span><span class="p">)</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="n">scatter_add_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inds</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">vals</span> <span class="o">&gt;</span> <span class="mf">1e-3</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">tmp</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats_last_nonzero</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># TopK for AuxK loss</span>
+        <span class="n">auxk_vals</span><span class="p">,</span> <span class="n">auxk_inds</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auxk</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">masked_latents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auxk_mask_fn</span><span class="p">(</span><span class="n">latents_pre_act</span><span class="o">.</span><span class="n">clone</span><span class="p">())</span> <span class="c1"># clone to avoid in-place modification issues</span>
+            <span class="n">auxk_vals</span><span class="p">,</span> <span class="n">auxk_inds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">masked_latents</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">auxk</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">latents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+        <span class="n">recons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_sparse</span><span class="p">(</span><span class="n">inds</span><span class="p">,</span> <span class="n">latents</span><span class="p">)</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;auxk_inds&quot;</span><span class="p">:</span> <span class="n">auxk_inds</span><span class="p">,</span>
+            <span class="s2">&quot;auxk_vals&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">auxk_vals</span><span class="p">)</span> <span class="k">if</span> <span class="n">auxk_vals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">recons</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_bias</span><span class="p">,</span> <span class="n">info</span>
+
+    <span class="k">def</span> <span class="nf">decode_sparse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inds</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+        <span class="n">recons</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">inds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dirs_local</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">inds</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">vals</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">recons</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">inds</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="n">recons</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">unit_norm_decoder_</span><span class="p">(</span><span class="n">autoencoder</span><span class="p">):</span>
+    <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="o">/=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">unit_norm_decoder_grad_adjustment_</span><span class="p">(</span><span class="n">autoencoder</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span>
+    <span class="n">grad</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span>
+    <span class="n">proj</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ij,ij-&gt;j&quot;</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">grad</span> <span class="o">-=</span> <span class="n">proj</span> <span class="o">*</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span>
+
+<span class="k">class</span> <span class="nc">Logger</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">kws</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dummy&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">logkv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="k">else</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">dumpkvs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="n">wandb</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vals</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vals</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span> <span class="nf">training_loop_</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">train_acts_iter</span><span class="p">,</span> <span class="n">loss_fn</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">comms</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">clip_grad</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">fused</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">flat_acts_train_batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="n">train_acts_iter</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Training&quot;</span><span class="p">)):</span>
+        <span class="n">flat_acts_train_batch</span> <span class="o">=</span> <span class="n">flat_acts_train_batch</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+
+        <span class="n">recons</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">ae</span><span class="p">(</span><span class="n">flat_acts_train_batch</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">flat_acts_train_batch</span><span class="p">,</span> <span class="n">recons</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span>
+
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">unit_norm_decoder_grad_adjustment_</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">clip_grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">clip_grad_norm_</span><span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">clip_grad</span><span class="p">)</span>
+
+        <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">unit_norm_decoder_</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">dumpkvs</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">batch_tensors</span><span class="p">(</span><span class="n">it</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current_size</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+        <span class="n">buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">current_size</span> <span class="o">+=</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">current_size</span> <span class="o">&gt;=</span> <span class="n">batch_size</span><span class="p">:</span>
+            <span class="n">concatenated</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">concatenated</span><span class="p">[:</span><span class="n">batch_size</span><span class="p">]</span>
+            <span class="n">buffer</span> <span class="o">=</span> <span class="p">[</span><span class="n">concatenated</span><span class="p">[</span><span class="n">batch_size</span><span class="p">:]]</span>
+            <span class="n">current_size</span> <span class="o">-=</span> <span class="n">batch_size</span>
+    <span class="k">if</span> <span class="n">buffer</span> <span class="ow">and</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">init_from_data_</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">stats_acts_sample</span><span class="p">):</span>
+    <span class="c1"># 检查 geom_median 是否已安装</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">geom_median.torch</span> <span class="kn">import</span> <span class="n">compute_geometric_median</span>
+        <span class="n">median</span> <span class="o">=</span> <span class="n">compute_geometric_median</span><span class="p">(</span><span class="n">stats_acts_sample</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span><span class="o">.</span><span class="n">median</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">median</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING: &#39;geom_median&#39; not found. Initializing pre_bias with mean instead.&quot;</span><span class="p">)</span>
+        <span class="n">median</span> <span class="o">=</span> <span class="n">stats_acts_sample</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+        <span class="n">ae</span><span class="o">.</span><span class="n">pre_bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">median</span>
+
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># 2. 我们自己实现的、针对HDF5的数据加载逻辑</span>
+<span class="c1"># ==============================================================================</span>
+<span class="k">def</span> <span class="nf">create_h5_act_iterator</span><span class="p">(</span><span class="n">h5_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INFO: 开始从 </span><span class="si">{</span><span class="n">h5_path</span><span class="si">}</span><span class="s2"> 流式加载激活值...&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;hidden_states&#39;</span><span class="p">]</span>
+        <span class="n">num_sequences</span> <span class="o">=</span> <span class="n">dset</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_sequences</span><span class="p">):</span>
+            <span class="n">seq_block</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">dset</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>
+            <span class="k">yield</span> <span class="n">seq_block</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">d_model</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_stats_sample</span><span class="p">(</span><span class="n">h5_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INFO: 从 </span><span class="si">{</span><span class="n">h5_path</span><span class="si">}</span><span class="s2"> 提取 </span><span class="si">{</span><span class="n">num_samples</span><span class="si">}</span><span class="s2"> 个样本用于初始化...&quot;</span><span class="p">)</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">num_collected</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">dset</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;hidden_states&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dset</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">seq_block</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">dset</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>
+            <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seq_block</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dset</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="n">num_collected</span> <span class="o">+=</span> <span class="n">samples</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">num_collected</span> <span class="o">&gt;=</span> <span class="n">num_samples</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:</span><span class="n">num_samples</span><span class="p">]</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># 3. 主程序：配置并启动训练</span>
+<span class="c1"># ==============================================================================</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="c1"># 与原始train.py保持一致</span>
+    <span class="n">h5_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;/data0/yfliu/vqhlm/datasets/wikitext103_gpt2finetuned/train.h5&quot;</span>
+    <span class="n">d_model</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">768</span>
+    <span class="n">n_dirs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32768</span>
+    <span class="n">bs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4096</span> <span class="c1"># token-level batch size</span>
+    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">auxk</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">auxk_coef</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">32</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span>
+    <span class="n">eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span>
+    <span class="n">clip_grad</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">dead_toks_threshold</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10_000_000</span>
+    <span class="n">wandb_project</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sparse-autoencoder-full-logic&quot;</span>
+    <span class="n">wandb_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;gpt2-h5-resid-post-exp1-full&quot;</span>
+    <span class="c1"># 新增：保存模型的目录</span>
+    <span class="n">save_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;saved_models&quot;</span>
+
+<span class="k">def</span> <span class="nf">normalized_mse</span><span class="p">(</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">y_hat</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">y</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+    <span class="n">comms</span> <span class="o">=</span> <span class="n">TRIVIAL_COMMS</span>
+
+    <span class="n">acts_iter</span> <span class="o">=</span> <span class="n">create_h5_act_iterator</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">h5_path</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">d_model</span><span class="p">)</span>
+    <span class="n">stats_acts_sample</span> <span class="o">=</span> <span class="n">get_stats_sample</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">h5_path</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="mi">65536</span><span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+
+    <span class="n">ae</span> <span class="o">=</span> <span class="n">FastAutoencoder</span><span class="p">(</span>
+        <span class="n">n_dirs_local</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">n_dirs</span><span class="p">,</span>
+        <span class="n">d_model</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">d_model</span><span class="p">,</span>
+        <span class="n">k</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
+        <span class="n">auxk</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">auxk</span><span class="p">,</span>
+        <span class="n">dead_steps_threshold</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">dead_toks_threshold</span> <span class="o">//</span> <span class="n">cfg</span><span class="o">.</span><span class="n">bs</span><span class="p">,</span>
+        <span class="n">comms</span><span class="o">=</span><span class="n">comms</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+
+    <span class="n">init_from_data_</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">stats_acts_sample</span><span class="p">)</span>
+
+    <span class="n">mse_scale</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">stats_acts_sample</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">wandb_project</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">wandb_name</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="c1"># 恢复了AuxK的损失函数</span>
+    <span class="k">def</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span> <span class="n">flat_acts_train_batch</span><span class="p">,</span> <span class="n">recons</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+        <span class="c1"># 主MSE损失</span>
+        <span class="n">main_mse</span> <span class="o">=</span> <span class="p">(</span><span class="n">recons</span> <span class="o">-</span> <span class="n">flat_acts_train_batch</span><span class="p">)</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">logkv</span><span class="p">(</span><span class="s2">&quot;train_mse_unscaled&quot;</span><span class="p">,</span> <span class="n">main_mse</span><span class="p">)</span>
+
+        <span class="c1"># AuxK损失</span>
+        <span class="n">auxk_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">main_mse</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;auxk_inds&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">auxk_recons</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">decode_sparse</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;auxk_inds&quot;</span><span class="p">],</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;auxk_vals&quot;</span><span class="p">])</span>
+            <span class="n">residual</span> <span class="o">=</span> <span class="p">(</span><span class="n">flat_acts_train_batch</span> <span class="o">-</span> <span class="n">recons</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+            <span class="n">auxk_loss</span> <span class="o">=</span> <span class="n">normalized_mse</span><span class="p">(</span><span class="n">auxk_recons</span><span class="p">,</span> <span class="n">residual</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">logkv</span><span class="p">(</span><span class="s2">&quot;train_auxk_loss&quot;</span><span class="p">,</span> <span class="n">auxk_loss</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">main_mse</span> <span class="o">*</span> <span class="n">mse_scale</span> <span class="o">+</span> <span class="n">cfg</span><span class="o">.</span><span class="n">auxk_coef</span> <span class="o">*</span> <span class="n">auxk_loss</span>
+
+    <span class="n">training_loop_</span><span class="p">(</span>
+        <span class="n">ae</span><span class="p">,</span>
+        <span class="n">batch_tensors</span><span class="p">(</span><span class="n">acts_iter</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">bs</span><span class="p">),</span>
+        <span class="n">loss_fn</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span>
+        <span class="n">eps</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
+        <span class="n">clip_grad</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">clip_grad</span><span class="p">,</span>
+        <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span>
+        <span class="n">comms</span><span class="o">=</span><span class="n">comms</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### =======================================================================</span>
+    <span class="c1">### 新增：训练完成后保存模型的逻辑</span>
+    <span class="c1">### =======================================================================</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;训练完成，正在保存模型...&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 1. 创建保存目录 (如果不存在)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 2. 确定文件名，如果 wandb_name 未设置，则使用默认名称</span>
+    <span class="n">model_name</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">wandb_name</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">wandb_name</span> <span class="k">else</span> <span class="s2">&quot;sae_model&quot;</span>
+    <span class="n">save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">save_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2">.pt&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 3. 保存模型的 state_dict</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="n">save_path</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;模型已成功保存到: </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></p>
+<p>接下来是代码的解析：</p>
+<h3 id="mermaid">计算图 (Mermaid)<a class="headerlink" href="#mermaid" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    %% 输入数据
+    X[① 输入数据\nx] --&gt; N1
+
+    %% 主路径
+    N1[&quot;② 中心化\nx_centered = x - b_pre&quot;] --&gt; |E1| N2
+    N2[&quot;③ 编码\nz_pre = W_enc·x_centered + b_lat&quot;] --&gt; |E2| N3
+    N3[&quot;④ Top-K 稀疏化\nz = TopK(ReLU(z_pre))&quot;] --&gt; |E3| N4
+    N4[&quot;⑤ 解码\nx_partial = W_dec·z&quot;] --&gt; |E4| N5
+    N5[&quot;⑥ 添加偏置\nx_hat = x_partial + b_pre&quot;] --&gt; |E5| N6
+    N6[&quot;⑦ 主损失\nL_MSE = MSE(x_hat, x)&quot;] --&gt; |E6| N7
+    N7[&quot;⑧ 缩放\nscaled_L_MSE = mse_scale·L_MSE&quot;] --&gt; |E7| N12
+
+    %% 辅助路径
+    N3 --&gt; |E2| N8
+    N5 --&gt; |E5| N9
+    N8[&quot;⑨ AuxK 稀疏化\nz_auxk = AuxK(ReLU(z_pre))&quot;] --&gt; |E8| N10
+    N9[&quot;⑩ 残差计算\nr = (x - x_hat).detach()&quot;] --&gt; |E9| N11
+    N10[&quot;⑪ 辅助解码\nr_hat = W_dec·z_auxk&quot;] --&gt; |E10| N11
+    N11[&quot;⑫ 辅助损失\nL_AuxK = auxk_coef·||r_hat-r||²/||r||²&quot;] --&gt; |E11| N12
+
+    %% 总损失
+    N12[&quot;⑬ 总损失\nL_total = scaled_L_MSE + L_AuxK&quot;] --&gt; |E12| N13
+    N13[&quot;⑭ 反向传播\nloss.backward()&quot;] --&gt; |梯度| N14
+    N14[&quot;⑮ 梯度调整\nproj⟂(∇W_dec)&quot;] --&gt; N15
+    N15[&quot;⑯ 参数更新\nopt.step()&quot;] --&gt; N16
+    N16[&quot;⑰ 权重归一化\n||W_dec[:,j]||=1&quot;]
+</code></pre></div>
+<h3 id="_1">数学公式详解<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h4 id="_2">前向传播公式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>② 中心化</strong>：
+   $$
+   \text{E1: } \mathbf{x}<em _text_pre="\text{pre">{\text{centered}} = \mathbf{x} - \mathbf{b}</em>
+   $$}</p>
+</li>
+<li>
+<p><strong>③ 编码</strong>：
+   $$
+   \text{E2: } \mathbf{z}<em _text_enc="\text{enc">{\text{pre}} = \mathbf{W}</em>}} \mathbf{x<em _text_lat="\text{lat">{\text{centered}} + \mathbf{b}</em>
+   $$}</p>
+</li>
+<li>
+<p><strong>④ Top-K 稀疏化</strong>：
+   $$
+   \text{E3: } \mathbf{z} = \text{TopK}<em _text_pre="\text{pre">k(\operatorname{ReLU}(\mathbf{z}</em>))
+   $$}</p>
+</li>
+<li>
+<p><strong>⑤ 解码</strong>：
+   $$
+   \text{E4: } \mathbf{x}<em _text_dec="\text{dec">{\text{partial}} = \mathbf{W}</em>
+   $$}} \mathbf{z</p>
+</li>
+<li>
+<p><strong>⑥ 添加偏置</strong>：
+   $$
+   \text{E5: } \hat{\mathbf{x}} = \mathbf{x}<em _text_pre="\text{pre">{\text{partial}} + \mathbf{b}</em>
+   $$}</p>
+</li>
+<li>
+<p><strong>⑦ 主损失</strong>：
+   $$
+   \text{E6: } \mathcal{L}_{\text{MSE}} = \frac{1}{d} |\hat{\mathbf{x}} - \mathbf{x}|^2_2
+   $$</p>
+</li>
+<li>
+<p><strong>⑧ 缩放</strong>：
+   $$
+   \text{E7: } \mathcal{L}<em _text_MSE="\text{MSE">{\text{scaled}} = \alpha \cdot \mathcal{L}</em>)
+   $$}} \quad (\alpha = \text{mse_scale</p>
+</li>
+<li>
+<p><strong>⑨ AuxK 稀疏化</strong>：
+   $$
+   \text{E8: } \mathbf{z}<em _text_auxk="\text{auxk">{\text{auxk}} = \text{TopK}</em>}}(\operatorname{ReLU}(\mathbf{z<em _text_dead="\text{dead">{\text{pre}} \odot \mathbb{I}</em>))
+   $$}</p>
+</li>
+<li>
+<p><strong>⑩ 残差计算</strong>：
+   $$
+   \text{E9: } \mathbf{r} = (\mathbf{x} - \hat{\mathbf{x}}).\text{detach()}
+   $$</p>
+</li>
+<li>
+<p><strong>⑪ 辅助解码</strong>：
+    $$
+    \text{E10: } \hat{\mathbf{r}} = \mathbf{W}_{\text{dec}}[:, \mathcal{I}] \mathbf{v} \quad (\mathcal{I} = \text{auxk_indices})
+    $$</p>
+</li>
+<li>
+<p><strong>⑫ 辅助损失</strong>：
+    $$
+    \text{E11: } \mathcal{L}_{\text{AuxK}} = \beta \cdot \frac{|\hat{\mathbf{r}} - \mathbf{r}|<sup>2_2}{|\mathbf{r}|</sup>2_2 + \epsilon} \quad (\beta = \text{auxk_coef})
+    $$</p>
+</li>
+<li>
+<p><strong>⑬ 总损失</strong>：
+    $$
+    \text{E12: } \mathcal{L}<em _text_scaled="\text{scaled">{\text{total}} = \mathcal{L}</em>
+    $$}} + \mathcal{L}_{\text{AuxK}</p>
+</li>
+</ol>
+<h4 id="_3">反向传播公式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p><strong>⑭ 反向传播起点</strong>：
+   $$
+   \nabla_{\mathcal{L}_{\text{total}}} = 1
+   $$</p>
+</li>
+<li>
+<p><strong>⑬ 总损失梯度</strong>：
+   $$
+   \nabla_{\mathcal{L}<em _mathcal_L="\mathcal{L">{\text{scaled}}} = 1, \quad \nabla</em> = 1
+   $$}_{\text{AuxK}}</p>
+</li>
+<li>
+<p><strong>⑧ 缩放梯度</strong>：
+   $$
+   \nabla_{\mathcal{L}_{\text{MSE}}} = \alpha
+   $$</p>
+</li>
+<li>
+<p><strong>⑦ 主损失梯度</strong>：
+   $$
+   \nabla_{\hat{\mathbf{x}}} = \frac{2\alpha}{d} (\hat{\mathbf{x}} - \mathbf{x})
+   $$</p>
+</li>
+<li>
+<p><strong>⑥ 添加偏置梯度</strong>：
+   $$
+   \nabla_{\mathbf{x}<em _hat_mathbf_x="\hat{\mathbf{x">{\text{partial}}} = \nabla</em>}}}, \quad \nabla_{\mathbf{b<em _hat_mathbf_x="\hat{\mathbf{x">{\text{pre}}} = \sum \nabla</em>
+   $$}}</p>
+</li>
+<li>
+<p><strong>⑤ 解码梯度</strong>：
+   $$
+   \nabla_{\mathbf{W}<em _mathbf_x="\mathbf{x">{\text{dec}}^{\text{(main)}}} = \nabla</em><em _mathbf_z="\mathbf{z">{\text{partial}}} \mathbf{z}^\top, \quad \nabla</em>}} = \mathbf{W<em _mathbf_x="\mathbf{x">{\text{dec}}^\top \nabla</em>
+   $$}_{\text{partial}}</p>
+</li>
+<li>
+<p><strong>⑫ 辅助损失梯度</strong>：
+   $$
+   \nabla_{\hat{\mathbf{r}}} = \frac{2\beta}{|\mathbf{r}|^2_2 + \epsilon} (\hat{\mathbf{r}} - \mathbf{r})
+   $$</p>
+</li>
+<li>
+<p><strong>⑪ 辅助解码梯度</strong>：
+   $$
+   \nabla_{\mathbf{W}<em _hat_mathbf_r="\hat{\mathbf{r">{\text{dec}}^{\text{(aux)}}}[:, j] = 
+   \begin{cases} 
+   \nabla</em> \
+   0 &amp; \text{otherwise}
+   \end{cases}
+   $$}}_i} v_j &amp; \text{if } j \in \mathcal{I</p>
+</li>
+<li>
+<p><strong>④ Top-K 梯度</strong>：
+   $$
+   \nabla_{\mathbf{z}<em _mathbf_z="\mathbf{z">{\text{pre}, i}} = 
+   \begin{cases} 
+   \nabla</em><em _text_pre="\text{pre">i} \cdot \mathbb{I}(z</em> i \in S_k \
+   0 &amp; \text{otherwise}
+   \end{cases}
+   $$},i} &gt; 0) &amp; \text{if </p>
+</li>
+<li>
+<p><strong>③ 编码梯度</strong>：
+    $$
+    \nabla_{\mathbf{W}<em _mathbf_z="\mathbf{z">{\text{enc}}} = \nabla</em><em _text_centered="\text{centered">{\text{pre}}} \mathbf{x}</em>^\top, \quad 
+    \nabla_{\mathbf{b}}<em _mathbf_z="\mathbf{z">{\text{lat}}} = \sum \nabla</em>
+    $$}_{\text{pre}}</p>
+</li>
+<li>
+<p><strong>② 中心化梯度</strong>：
+    $$
+    \nabla_{\mathbf{x}<em _text_enc="\text{enc">{\text{centered}}} = \mathbf{W}</em>
+    $$}}^\top \nabla_{\mathbf{z}_{\text{pre}}</p>
+</li>
+<li>
+<p><strong>⑮ 梯度调整</strong>：
+    $$
+    \nabla_{\mathbf{W}<em _mathbf_W="\mathbf{W">{\text{dec}}}^{\text{(adj)}} = \nabla</em><em _mathbf_W="\mathbf{W">{\text{dec}}} - \text{diag}(\mathbf{w}_j^\top \nabla</em><em _text_dec="\text{dec">{\text{dec}}}) \mathbf{W}</em>
+    $$}</p>
+</li>
+<li>
+<p><strong>⑰ 权重归一化</strong>：
+    $$
+    \mathbf{W}<em _text_dec="\text{dec">{\text{dec}}[:, j] \leftarrow \frac{\mathbf{W}</em>
+    $$}}[:, j]}{|\mathbf{W}_{\text{dec}}[:, j]|_2</p>
+</li>
+</ol>
+<h3 id="_4">梯度传播路径特性<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>主路径梯度流</strong>：
+   <div class="highlight"><pre><span></span><code>⑭ → ⑬ → ⑧ → ⑦ → ⑥ → ⑤ → ④ → ③ → ②
+</code></pre></div>
+   更新参数：<code>W_enc, b_lat, b_pre, W_dec</code>（主激活列）</p>
+</li>
+<li>
+<p><strong>辅助路径梯度流</strong>：
+   <div class="highlight"><pre><span></span><code>⑭ → ⑬ → ⑫ → ⑪ → ⑨ → ③ → ②
+</code></pre></div>
+   更新参数：<code>W_enc, b_lat, b_pre, W_dec</code>（辅助激活列）</p>
+</li>
+<li>
+<p><strong>梯度切断点</strong>：</p>
+</li>
+<li>残差计算 <code>r = (x - x_hat).detach()</code> 阻止辅助损失梯度影响主重构路径</li>
+<li>
+<p>确保辅助训练只激活"死亡神经元"，不干扰主特征学习</p>
+</li>
+<li>
+<p><strong>参数更新范围</strong>：
+   | 参数        | 主路径更新 | 辅助路径更新 |
+   |------------|-----------|------------|
+   | <code>W_enc</code>    | ✓         | ✓          |
+   | <code>b_lat</code>    | ✓         | ✓          |
+   | <code>b_pre</code>    | ✓         | ✓          |
+   | <code>W_dec</code>    | TopK列    | AuxK列     |</p>
+</li>
+<li>
+<p><strong>梯度调整机制</strong>：
+   <div class="highlight"><pre><span></span><code><span class="c1"># 正交投影伪代码</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_dirs</span><span class="p">):</span>
+    <span class="n">w_j</span> <span class="o">=</span> <span class="n">W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="n">g_j</span> <span class="o">=</span> <span class="n">grad_W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="c1"># 投影到与w_j正交的方向</span>
+    <span class="n">grad_W_dec</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">g_j</span> <span class="o">-</span> <span class="n">torch</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">g_j</span><span class="p">,</span> <span class="n">w_j</span><span class="p">)</span> <span class="o">*</span> <span class="n">w_j</span>
+</code></pre></div></p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/InuyashaYang/TechBlog-of-Inuyasha" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="../../javascripts/mathjax_config.js"></script>
+      
+    
+  </body>
+</html>
