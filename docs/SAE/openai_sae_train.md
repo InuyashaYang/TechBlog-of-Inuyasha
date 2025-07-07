@@ -1106,7 +1106,7 @@ flowchart TD
 ### 数学公式详解
 
 #### 前向传播公式
-
+```markdown
 1. **② 中心化**：
    $$
    \text{E1: } \mathbf{x}_{\text{centered}} = \mathbf{x} - \mathbf{b}_{\text{pre}}
@@ -1278,3 +1278,4 @@ flowchart TD
        # 投影到与w_j正交的方向
        grad_W_dec[:, j] = g_j - torch.dot(g_j, w_j) * w_j
    ```
+```
