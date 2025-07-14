@@ -42,6 +42,8 @@ nav:
     - 使用lean4解数学方程: Lean4/LeanFunction.md
   - Lean Agent: lean_agent.md
   - Eval Agent: eval_agent.md
+  - Research: 
+    - How to do survey: Research/How_to_do_survey.md
 
 
 extra:
